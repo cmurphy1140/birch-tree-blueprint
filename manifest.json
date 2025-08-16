@@ -2,7 +2,7 @@
   "name": "The Birch Tree Blueprint - PE Curriculum",
   "short_name": "Birch Tree PE",
   "description": "Interactive K-8 Physical Education Curriculum with gamification and progress tracking",
-  "start_url": "/index.html",
+  "start_url": "/interactive-index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#28a745",
