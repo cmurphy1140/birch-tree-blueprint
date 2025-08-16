@@ -1,0 +1,13 @@
+{
+  "name": "birch-tree-blueprint",
+  "version": "1.0.0",
+  "description": "K-8 Physical Education Curriculum Website",
+  "scripts": {
+    "build": "echo 'Static site - no build required'",
+    "serve": "npx serve .",
+    "preview": "npx vite preview"
+  },
+  "keywords": ["education", "curriculum", "physical-education"],
+  "author": "Connor Murphy",
+  "license": "MIT"
+}
