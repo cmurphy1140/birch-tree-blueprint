@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeModal();
     initializeMobileMenu();
     initializeScrollEffects();
+    initializeFlipCards();
 });
 
 // Smooth Scrolling Navigation
@@ -387,6 +388,123 @@ function initializeAccessibility() {
 
 // Initialize accessibility features
 initializeAccessibility();
+
+// Flip Card Functionality
+function initializeFlipCards() {
+    const flipCards = document.querySelectorAll('.flip-card');
+    
+    flipCards.forEach(card => {
+        // Main card click handler
+        card.addEventListener('click', function(e) {
+            // Don't flip if clicking on a button
+            if (e.target.classList.contains('back-button')) {
+                return;
+            }
+            
+            // Toggle flip
+            this.classList.toggle('flipped');
+            
+            // Update aria-expanded for accessibility
+            const isFlipped = this.classList.contains('flipped');
+            this.setAttribute('aria-expanded', isFlipped);
+        });
+        
+        // Back button handler
+        const flipBackBtn = card.querySelector('.flip-back');
+        if (flipBackBtn) {
+            flipBackBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                card.classList.remove('flipped');
+                card.setAttribute('aria-expanded', 'false');
+            });
+        }
+        
+        // Explore button handlers
+        const exploreButtons = card.querySelectorAll('.back-button[data-action="explore"]');
+        exploreButtons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const url = card.getAttribute('data-url');
+                
+                // Check if it's an internal link (starts with #)
+                if (url && url.startsWith('#')) {
+                    // Smooth scroll to section
+                    const targetSection = document.querySelector(url);
+                    if (targetSection) {
+                        // First unflip the card
+                        card.classList.remove('flipped');
+                        
+                        // Show the target section if it's hidden
+                        if (targetSection.style.display === 'none') {
+                            targetSection.style.display = 'block';
+                        }
+                        
+                        // Then scroll to the section
+                        setTimeout(() => {
+                            const headerOffset = 80;
+                            const elementPosition = targetSection.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                            
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                        }, 300);
+                    }
+                } else if (url) {
+                    // External URL - open in new tab
+                    window.open(url, '_blank');
+                }
+            });
+        });
+        
+        // Add keyboard support
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-expanded', 'false');
+        
+        card.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.classList.toggle('flipped');
+                const isFlipped = this.classList.contains('flipped');
+                this.setAttribute('aria-expanded', isFlipped);
+            }
+        });
+    });
+    
+    // Add touch support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    flipCards.forEach(card => {
+        card.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+        
+        card.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe(card);
+        }, false);
+    });
+    
+    function handleSwipe(card) {
+        const swipeThreshold = 50;
+        const diff = touchEndX - touchStartX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0 && card.classList.contains('flipped')) {
+                // Swiped right - unflip
+                card.classList.remove('flipped');
+                card.setAttribute('aria-expanded', 'false');
+            } else if (diff < 0 && !card.classList.contains('flipped')) {
+                // Swiped left - flip
+                card.classList.add('flipped');
+                card.setAttribute('aria-expanded', 'true');
+            }
+        }
+    }
+}
 
 // Service Worker registration for offline support (optional)
 if ('serviceWorker' in navigator) {
