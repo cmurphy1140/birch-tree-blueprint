@@ -243,6 +243,27 @@
         .back-link:hover {
             transform: translateX(-4px);
         }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .generate-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
         @media (max-width: 768px) {
             .generator-title {
                 font-size: 2rem;
@@ -424,7 +445,23 @@
                     </div>
                 </div>
 
-                <button type="submit" class="generate-button">Generate Playbook</button>
+                <button type="submit" class="generate-button" id="generate-btn">
+                    <span id="button-text">Generate Playbook</span>
+                    <div id="loading-spinner" style="display: none; margin-left: 8px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;">
+                            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                        </svg>
+                    </div>
+                </button>
+                <div style="text-align: center; margin-top: 16px;">
+                    <button type="button" onclick="openAISettings()" style="background: transparent; border: none; color: var(--primary-color); cursor: pointer; text-decoration: underline; font-size: 0.875rem;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/>
+                        </svg>
+                        AI Settings
+                    </button>
+                </div>
             </form>
 
             <!-- Generated Playbook Result -->
@@ -434,7 +471,150 @@
         </div>
     </main>
 
+    <!-- AI Settings Modal -->
+    <div id="ai-settings-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 600px;">
+            <button class="modal-close" onclick="closeAISettings()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            <h2 style="margin-bottom: 24px;">AI Configuration</h2>
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="ai-provider">AI Provider</label>
+                    <select id="ai-provider" onchange="updateProviderInfo()">
+                        <option value="openai">OpenAI (GPT-3.5/GPT-4)</option>
+                        <option value="anthropic">Anthropic (Claude)</option>
+                        <option value="gemini">Google Gemini (Free tier available)</option>
+                        <option value="cohere">Cohere (Free tier available)</option>
+                        <option value="huggingface">HuggingFace (Free tier)</option>
+                        <option value="none">Use Static Generator (No API)</option>
+                    </select>
+                </div>
+                <div class="form-group" id="api-key-group">
+                    <label for="api-key">API Key</label>
+                    <input type="password" id="api-key" placeholder="Enter your API key" style="width: 100%; padding: 12px; border: 2px solid var(--border-color); border-radius: 8px;">
+                    <small id="provider-info" style="color: var(--text-light); display: block; margin-top: 8px;">
+                        Get your API key from <a href="https://platform.openai.com/api-keys" target="_blank" style="color: var(--primary-color);">OpenAI Dashboard</a>
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" id="ai-enabled" checked>
+                        <span>Enable AI-Powered Generation</span>
+                    </label>
+                    <small style="color: var(--text-light); display: block; margin-top: 8px;">
+                        When disabled, uses the built-in lesson templates
+                    </small>
+                </div>
+                <button onclick="saveAISettings()" class="generate-button" style="margin-top: 24px;">
+                    Save Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
     <script src="playbook-generator.js"></script>
+    <script src="playbook-ai.js"></script>
+    <script>
+        // Initialize AI on page load
+        const playbookAI = new PlaybookAI();
+        
+        // Check for saved configuration
+        if (!playbookAI.loadConfig()) {
+            // Show settings modal if no API key configured
+            setTimeout(() => {
+                const modal = document.getElementById('ai-settings-modal');
+                modal.style.display = 'flex';
+                modal.classList.add('active');
+            }, 500);
+        }
+        
+        function openAISettings() {
+            const modal = document.getElementById('ai-settings-modal');
+            modal.style.display = 'flex';
+            modal.classList.add('active');
+            
+            // Load current settings
+            const savedKey = localStorage.getItem('playbook_api_key');
+            const savedProvider = localStorage.getItem('playbook_provider');
+            const aiEnabled = localStorage.getItem('ai_enabled') !== 'false';
+            
+            if (savedKey) {
+                document.getElementById('api-key').value = atob(savedKey);
+            }
+            if (savedProvider) {
+                document.getElementById('ai-provider').value = savedProvider;
+            }
+            document.getElementById('ai-enabled').checked = aiEnabled;
+            
+            updateProviderInfo();
+        }
+        
+        function closeAISettings() {
+            const modal = document.getElementById('ai-settings-modal');
+            modal.style.display = 'none';
+            modal.classList.remove('active');
+        }
+        
+        function updateProviderInfo() {
+            const provider = document.getElementById('ai-provider').value;
+            const infoElement = document.getElementById('provider-info');
+            const apiKeyGroup = document.getElementById('api-key-group');
+            
+            const providerLinks = {
+                openai: 'Get your API key from <a href="https://platform.openai.com/api-keys" target="_blank" style="color: var(--primary-color);">OpenAI Dashboard</a>',
+                anthropic: 'Get your API key from <a href="https://console.anthropic.com/account/keys" target="_blank" style="color: var(--primary-color);">Anthropic Console</a>',
+                gemini: 'Get your free API key from <a href="https://makersuite.google.com/app/apikey" target="_blank" style="color: var(--primary-color);">Google AI Studio</a>',
+                cohere: 'Get your free API key from <a href="https://dashboard.cohere.com/api-keys" target="_blank" style="color: var(--primary-color);">Cohere Dashboard</a>',
+                huggingface: 'Get your free API token from <a href="https://huggingface.co/settings/tokens" target="_blank" style="color: var(--primary-color);">HuggingFace Settings</a>',
+                none: 'No API key needed - uses built-in templates'
+            };
+            
+            infoElement.innerHTML = providerLinks[provider] || providerLinks.openai;
+            
+            if (provider === 'none') {
+                apiKeyGroup.style.display = 'none';
+            } else {
+                apiKeyGroup.style.display = 'block';
+            }
+        }
+        
+        function saveAISettings() {
+            const provider = document.getElementById('ai-provider').value;
+            const apiKey = document.getElementById('api-key').value;
+            const aiEnabled = document.getElementById('ai-enabled').checked;
+            
+            if (provider !== 'none' && aiEnabled && !apiKey) {
+                alert('Please enter an API key or disable AI generation');
+                return;
+            }
+            
+            // Save settings
+            localStorage.setItem('playbook_provider', provider);
+            localStorage.setItem('ai_enabled', aiEnabled);
+            
+            if (apiKey) {
+                localStorage.setItem('playbook_api_key', btoa(apiKey));
+                playbookAI.init(apiKey, provider);
+            }
+            
+            closeAISettings();
+            
+            // Show success message
+            const button = document.querySelector('.generate-button');
+            const originalText = button.textContent;
+            button.textContent = 'Settings Saved!';
+            button.style.background = '#10b981';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '';
+            }, 2000);
+        }
+    </script>
 </body>
 </html>

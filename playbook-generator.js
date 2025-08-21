@@ -44,10 +44,58 @@ function initializePlaybookGenerator() {
     }
 }
 
-function generatePlaybook() {
+async function generatePlaybook() {
     const formData = collectFormData();
-    const playbook = createPlaybook(formData);
-    displayPlaybook(playbook);
+    const aiEnabled = localStorage.getItem('ai_enabled') !== 'false';
+    const hasApiKey = localStorage.getItem('playbook_api_key');
+    
+    // Show loading state
+    const generateBtn = document.getElementById('generate-btn');
+    const buttonText = document.getElementById('button-text');
+    const spinner = document.getElementById('loading-spinner');
+    
+    generateBtn.disabled = true;
+    buttonText.textContent = 'Generating...';
+    spinner.style.display = 'inline-block';
+    
+    try {
+        let playbook;
+        
+        // Try AI generation first if enabled and configured
+        if (aiEnabled && hasApiKey && window.playbookAI) {
+            try {
+                console.log('Generating with AI...');
+                playbook = await window.playbookAI.generateLesson(formData);
+            } catch (aiError) {
+                console.error('AI generation failed, falling back to static:', aiError);
+                
+                // Show error message but continue with static generation
+                if (aiError.message.includes('API key')) {
+                    if (confirm('AI API key not configured. Would you like to configure it now?')) {
+                        openAISettings();
+                        return;
+                    }
+                }
+                
+                // Fall back to static generation
+                playbook = createPlaybook(formData);
+            }
+        } else {
+            // Use static generation
+            playbook = createPlaybook(formData);
+        }
+        
+        displayPlaybook(playbook);
+        
+    } catch (error) {
+        console.error('Generation error:', error);
+        alert('Error generating playbook. Please try again.');
+    } finally {
+        // Reset button state
+        generateBtn.disabled = false;
+        buttonText.textContent = 'Generate Playbook';
+        spinner.style.display = 'none';
+    }
 }
 
 function collectFormData() {
@@ -476,9 +524,13 @@ function generateActivities(data) {
 function displayPlaybook(playbook) {
     const resultDiv = document.getElementById('playbook-result');
     
+    // Check if AI-generated
+    const aiGenerated = playbook.aiGenerated || false;
+    const aiBadge = aiGenerated ? '<span class="ai-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> AI Generated</span>' : '';
+    
     const html = `
         <div class="playbook-header">
-            <h3 class="playbook-title">${playbook.title}</h3>
+            <h3 class="playbook-title">${playbook.title}${aiBadge}</h3>
             <div class="playbook-meta">
                 <span class="meta-item">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -584,6 +636,25 @@ function displayPlaybook(playbook) {
                     `).join('')}
                 </ul>
             </div>
+            
+            ${playbook.crossCurricular ? `
+            <div class="playbook-section">
+                <h4>Cross-Curricular Connections</h4>
+                <ul>
+                    ${Array.isArray(playbook.crossCurricular) ? 
+                        playbook.crossCurricular.map(connection => `<li>${connection}</li>`).join('') :
+                        `<li>${playbook.crossCurricular}</li>`
+                    }
+                </ul>
+            </div>
+            ` : ''}
+            
+            ${playbook.takeHome ? `
+            <div class="playbook-section">
+                <h4>Take-Home Challenge</h4>
+                <p>${playbook.takeHome}</p>
+            </div>
+            ` : ''}
         </div>
         
         <div class="action-buttons">
