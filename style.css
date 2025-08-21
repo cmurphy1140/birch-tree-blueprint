@@ -171,6 +171,23 @@ li {
     color: var(--primary-color);
 }
 
+.nav-link.playbook-link {
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.nav-link.playbook-link:hover {
+    background: var(--primary-hover);
+    transform: scale(1.05);
+}
+
+.nav-link.playbook-link::after {
+    display: none;
+}
+
 /* Hero Section */
 .hero-section {
     padding: calc(var(--header-height) + 80px) 0 80px;
@@ -265,6 +282,65 @@ li {
 
 .flip-card:nth-child(3) .flip-card-back {
     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+/* Playbook Card Styles */
+.playbook-card {
+    background: var(--background);
+    padding: 32px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    transition: var(--transition);
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.playbook-card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+}
+
+.playbook-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--primary-color);
+}
+
+.playbook-card:hover:before {
+    opacity: 0.05;
+}
+
+.playbook-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.playbook-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+}
+
+.playbook-card p {
+    color: var(--text-light);
+    margin: 0 0 16px 0;
+}
+
+.generator-cta {
+    color: var(--primary-color);
+    font-weight: 600;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .flip-card:hover .flip-card-front {
