@@ -1,7 +1,7 @@
 {
-  "name": "Birches PE Playbook Generator",
-  "short_name": "Birches PE",
-  "description": "Generate comprehensive PE playbooks for K-8 students with standards alignment",
+  "name": "Birch Tree Blueprint",
+  "short_name": "Birch Blueprint",
+  "description": "Birch Tree Blueprint - Generate comprehensive PE playbooks for K-8 students with standards alignment",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

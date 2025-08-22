@@ -36,12 +36,8 @@ export class GeneratorUI {
           <div class="container">
             <div class="nav-container">
               <a href="/" class="nav-logo">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                  <path d="M2 17l10 5 10-5"/>
-                  <path d="M2 12l10 5 10-5"/>
-                </svg>
-                <span>Birches PE Playbook</span>
+                <img src="/birch-tree-logo.svg" alt="Birch Tree Blueprint" width="32" height="32" />
+                <span>Birch Tree Blueprint</span>
               </a>
               <div class="nav-menu">
                 <button class="btn btn-ghost btn-icon" id="theme-toggle" aria-label="Toggle theme">
@@ -463,12 +459,16 @@ export class GeneratorUI {
       }
 
       this.currentPlaybook = playbook;
-      this.renderPlaybook(playbook);
       
-      // Enable action buttons
-      document.querySelectorAll('#save-btn, #export-btn, #print-btn, #regenerate-btn').forEach(btn => {
-        btn.removeAttribute('disabled');
-      });
+      // Store playbook and input in sessionStorage
+      const playbookData = {
+        playbook,
+        userInput: input
+      };
+      sessionStorage.setItem('currentPlaybook', JSON.stringify(playbookData));
+      
+      // Navigate to the playbook page
+      window.location.href = '/playbook.html';
     } catch (error) {
       console.error('Generation failed:', error);
       alert(`Generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);

@@ -1,4 +1,4 @@
-# Birches PE Playbook Generator
+# Birch Tree Blueprint - PE Playbook Generator
 
 A production-quality, offline-first Progressive Web App for generating comprehensive PE playbooks for K-8 students with standards alignment.
 
