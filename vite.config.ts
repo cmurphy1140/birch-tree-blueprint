@@ -7,6 +7,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
+        generator: resolve(__dirname, 'generator.html'),
         playbook: resolve(__dirname, 'playbook.html')
       }
     }
