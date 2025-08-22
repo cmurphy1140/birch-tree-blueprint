@@ -1,13 +1,11 @@
 import type { GeneratorInput, Playbook } from '../types';
 import { DeterministicGenerator } from '../lib/generator';
 import { PlaybookStore } from '../lib/store';
-import { AIGenerator } from '../lib/ai';
 import { ExportManager } from '../lib/export';
 
 export class GeneratorUI {
   private container: HTMLElement;
   private generator: DeterministicGenerator;
-  private aiGenerator: AIGenerator;
   private store: PlaybookStore;
   private exportManager: ExportManager;
   private currentPlaybook: Playbook | null = null;
@@ -16,7 +14,6 @@ export class GeneratorUI {
   constructor(container: HTMLElement) {
     this.container = container;
     this.generator = new DeterministicGenerator();
-    this.aiGenerator = new AIGenerator();
     this.store = new PlaybookStore();
     this.exportManager = new ExportManager();
     this.init();
@@ -504,9 +501,10 @@ export class GeneratorUI {
       let playbook: Playbook;
       
       if (this.useAI) {
-        playbook = await this.aiGenerator.generate(input);
+        // AI not implemented yet, fall back to deterministic
+        playbook = await this.generator.generate(input);
       } else {
-        playbook = this.generator.generate(input);
+        playbook = await this.generator.generate(input);
       }
 
       this.currentPlaybook = playbook;
@@ -534,68 +532,9 @@ export class GeneratorUI {
   }
 
   private displayPlaybook(playbook: Playbook) {
-    const contentDiv = document.getElementById('playbook-content');
-    if (!contentDiv) return;
-
-    const html = `
-      <div class="playbook">
-        <h2>${playbook.title}</h2>
-        <div class="playbook-meta mb-3">
-          <span class="badge">${playbook.gradeLevel}</span>
-          <span class="badge">${playbook.duration} min</span>
-          <span class="badge">${playbook.environment}</span>
-        </div>
-        
-        <p class="mb-3">${playbook.description}</p>
-        
-        <h3>Learning Objectives</h3>
-        <ul class="mb-3">
-          ${playbook.objectives.map(obj => `<li>${obj}</li>`).join('')}
-        </ul>
-        
-        <h3>Required Equipment</h3>
-        <ul class="mb-3">
-          ${playbook.equipment.map(eq => `<li>${eq}</li>`).join('')}
-        </ul>
-        
-        <h3>Lesson Structure</h3>
-        ${playbook.sections.map(section => `
-          <div class="section mb-3">
-            <h4>${section.name} (${section.duration} min)</h4>
-            <p>${section.description}</p>
-            <h5>Activities:</h5>
-            <ul>
-              ${section.activities.map(activity => `
-                <li>
-                  <strong>${activity.name}</strong>: ${activity.description}
-                  ${activity.equipment ? `<br><em>Equipment: ${activity.equipment.join(', ')}</em>` : ''}
-                </li>
-              `).join('')}
-            </ul>
-          </div>
-        `).join('')}
-        
-        <h3>Assessment</h3>
-        <p>${playbook.assessment}</p>
-        
-        <h3>Modifications</h3>
-        <ul>
-          ${playbook.modifications.map(mod => `<li>${mod}</li>`).join('')}
-        </ul>
-        
-        <h3>Safety Considerations</h3>
-        <ul>
-          ${playbook.safetyConsiderations.map(safety => `<li>${safety}</li>`).join('')}
-        </ul>
-      </div>
-    `;
-
-    contentDiv.innerHTML = html;
-
-    // Enable action buttons
-    document.querySelectorAll('#save-btn, #export-btn, #print-btn, #regenerate-btn').forEach(btn => {
-      (btn as HTMLButtonElement).disabled = false;
-    });
+    // Since we're navigating to the playbook page immediately,
+    // we don't need to display it here
+    console.log('Playbook generated:', playbook.title);
   }
 
   private async savePlaybook() {
@@ -616,13 +555,24 @@ export class GeneratorUI {
     
     switch (format) {
       case 'pdf':
-        await this.exportManager.exportToPDF(this.currentPlaybook);
+        await this.exportManager.toPdf(this.currentPlaybook);
         break;
       case 'docx':
-        await this.exportManager.exportToWord(this.currentPlaybook);
+        const docxBlob = await this.exportManager.toDocx(this.currentPlaybook);
+        const url = URL.createObjectURL(docxBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'playbook.docx';
+        a.click();
         break;
       case 'json':
-        await this.exportManager.exportToJSON(this.currentPlaybook);
+        const jsonStr = JSON.stringify(this.currentPlaybook, null, 2);
+        const jsonBlob = new Blob([jsonStr], { type: 'application/json' });
+        const jsonUrl = URL.createObjectURL(jsonBlob);
+        const jsonLink = document.createElement('a');
+        jsonLink.href = jsonUrl;
+        jsonLink.download = 'playbook.json';
+        jsonLink.click();
         break;
     }
   }
@@ -646,7 +596,7 @@ export class GeneratorUI {
       content.innerHTML = playbooks.map(pb => `
         <div class="card mb-2" style="cursor: pointer;" data-id="${pb.id}">
           <h4>${pb.title}</h4>
-          <p class="text-muted">${pb.gradeLevel} • ${pb.duration} min • ${new Date(pb.createdAt).toLocaleDateString()}</p>
+          <p class="text-muted">${pb.metadata?.gradeLevel || 'N/A'} • ${pb.metadata?.duration || 'N/A'} min • ${new Date(pb.createdAt).toLocaleDateString()}</p>
         </div>
       `).join('');
       

@@ -1,206 +1,137 @@
-import { openDB, DBSchema, IDBPDatabase } from 'idb';
-import type { Playbook, AppSettings } from '../types';
-
-interface PlaybookDB extends DBSchema {
-  playbooks: {
-    key: string;
-    value: Playbook;
-    indexes: { 'by-date': Date; 'by-favorite': number };
-  };
-  settings: {
-    key: string;
-    value: any;
-  };
-}
+import type { Playbook, StoredPlaybook, AppSettings } from '../types';
 
 export class PlaybookStore {
-  private db: IDBPDatabase<PlaybookDB> | null = null;
-  private readonly DB_NAME = 'birches-pe-playbooks';
-  private readonly DB_VERSION = 1;
+  private readonly STORAGE_KEY = 'birches_pe_playbooks';
+  private readonly SETTINGS_KEY = 'birches_pe_settings';
   private readonly MAX_PLAYBOOKS = 10;
 
   async init(): Promise<void> {
-    this.db = await openDB<PlaybookDB>(this.DB_NAME, this.DB_VERSION, {
-      upgrade(db) {
-        // Create playbooks store
-        if (!db.objectStoreNames.contains('playbooks')) {
-          const playbookStore = db.createObjectStore('playbooks', {
-            keyPath: 'id'
-          });
-          playbookStore.createIndex('by-date', 'createdAt');
-          playbookStore.createIndex('by-favorite', 'metadata.favorite');
-        }
-
-        // Create settings store
-        if (!db.objectStoreNames.contains('settings')) {
-          db.createObjectStore('settings');
-        }
-      }
-    });
+    // Initialize localStorage if needed
+    if (!localStorage.getItem(this.STORAGE_KEY)) {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify([]));
+    }
+    if (!localStorage.getItem(this.SETTINGS_KEY)) {
+      const defaultSettings: AppSettings = {
+        theme: 'light',
+        defaultDuration: 45,
+        defaultParticipants: 25,
+        favoriteActivities: [],
+        aiProvider: null,
+        autoSave: true,
+        offlineMode: true
+      };
+      localStorage.setItem(this.SETTINGS_KEY, JSON.stringify(defaultSettings));
+    }
   }
 
   async savePlaybook(playbook: Playbook): Promise<void> {
-    if (!this.db) await this.init();
+    const playbooks = await this.getAllPlaybooks();
     
-    const tx = this.db!.transaction('playbooks', 'readwrite');
-    await tx.objectStore('playbooks').put(playbook);
+    // Convert to StoredPlaybook
+    const storedPlaybook: StoredPlaybook = {
+      ...playbook,
+      name: playbook.title,
+      tags: [],
+      favorite: false
+    };
     
-    // Enforce max playbooks limit
-    await this.enforceLimit();
+    // Add to beginning of array
+    playbooks.unshift(storedPlaybook);
     
-    await tx.done;
+    // Keep only last MAX_PLAYBOOKS
+    const trimmed = playbooks.slice(0, this.MAX_PLAYBOOKS);
+    
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(trimmed));
   }
 
-  async getPlaybook(id: string): Promise<Playbook | undefined> {
-    if (!this.db) await this.init();
-    return this.db!.get('playbooks', id);
+  async getAllPlaybooks(): Promise<StoredPlaybook[]> {
+    const stored = localStorage.getItem(this.STORAGE_KEY);
+    if (!stored) return [];
+    
+    try {
+      return JSON.parse(stored) as StoredPlaybook[];
+    } catch {
+      return [];
+    }
   }
 
-  async getAllPlaybooks(): Promise<Playbook[]> {
-    if (!this.db) await this.init();
-    const all = await this.db!.getAllFromIndex('playbooks', 'by-date');
-    return all.reverse(); // Most recent first
-  }
-
-  async getFavorites(): Promise<Playbook[]> {
-    if (!this.db) await this.init();
-    const all = await this.getAllPlaybooks();
-    return all.filter(p => p.metadata.favorite);
+  async getPlaybook(id: string): Promise<StoredPlaybook | null> {
+    const playbooks = await this.getAllPlaybooks();
+    return playbooks.find(p => p.id === id) || null;
   }
 
   async deletePlaybook(id: string): Promise<void> {
-    if (!this.db) await this.init();
-    await this.db!.delete('playbooks', id);
+    const playbooks = await this.getAllPlaybooks();
+    const filtered = playbooks.filter(p => p.id !== id);
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(filtered));
   }
 
-  async duplicatePlaybook(id: string): Promise<Playbook | null> {
-    const original = await this.getPlaybook(id);
-    if (!original) return null;
+  async updatePlaybook(id: string, updates: Partial<StoredPlaybook>): Promise<void> {
+    const playbooks = await this.getAllPlaybooks();
+    const index = playbooks.findIndex(p => p.id === id);
     
-    const duplicate: Playbook = {
-      ...original,
-      id: this.generateId(),
-      title: `${original.title} (Copy)`,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      metadata: {
-        ...original.metadata,
-        favorite: false
-      }
-    };
-    
-    await this.savePlaybook(duplicate);
-    return duplicate;
-  }
-
-  async renamePlaybook(id: string, newTitle: string): Promise<void> {
-    const playbook = await this.getPlaybook(id);
-    if (!playbook) return;
-    
-    playbook.title = newTitle;
-    playbook.updatedAt = new Date();
-    
-    await this.savePlaybook(playbook);
-  }
-
-  async toggleFavorite(id: string): Promise<void> {
-    const playbook = await this.getPlaybook(id);
-    if (!playbook) return;
-    
-    playbook.metadata.favorite = !playbook.metadata.favorite;
-    playbook.updatedAt = new Date();
-    
-    await this.savePlaybook(playbook);
-  }
-
-  async exportPlaybook(id: string): Promise<string> {
-    const playbook = await this.getPlaybook(id);
-    if (!playbook) throw new Error('Playbook not found');
-    
-    return JSON.stringify(playbook, null, 2);
-  }
-
-  async importPlaybook(jsonData: string): Promise<Playbook> {
-    const playbook = JSON.parse(jsonData) as Playbook;
-    
-    // Generate new ID to avoid conflicts
-    playbook.id = this.generateId();
-    playbook.createdAt = new Date(playbook.createdAt);
-    playbook.updatedAt = new Date();
-    
-    await this.savePlaybook(playbook);
-    return playbook;
-  }
-
-  async getSetting<T>(key: string, defaultValue: T): Promise<T> {
-    if (!this.db) await this.init();
-    
-    try {
-      const value = await this.db!.get('settings', key);
-      return value !== undefined ? value : defaultValue;
-    } catch {
-      return defaultValue;
+    if (index !== -1) {
+      playbooks[index] = {
+        ...playbooks[index],
+        ...updates,
+        modifiedAt: new Date().toISOString()
+      };
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(playbooks));
     }
-  }
-
-  async setSetting<T>(key: string, value: T): Promise<void> {
-    if (!this.db) await this.init();
-    await this.db!.put('settings', value, key);
   }
 
   async getSettings(): Promise<AppSettings> {
-    return {
-      aiProvider: await this.getSetting('aiProvider', 'none'),
-      apiKey: await this.getSetting('apiKey', undefined),
-      generationMode: await this.getSetting('generationMode', 'deterministic'),
-      blendRatio: await this.getSetting('blendRatio', 0.5),
-      theme: await this.getSetting('theme', 'light'),
-      reducedMotion: await this.getSetting('reducedMotion', false),
-      autoSave: await this.getSetting('autoSave', true)
-    };
-  }
-
-  async saveSettings(settings: Partial<AppSettings>): Promise<void> {
-    for (const [key, value] of Object.entries(settings)) {
-      if (value !== undefined) {
-        await this.setSetting(key, value);
-      }
+    const stored = localStorage.getItem(this.SETTINGS_KEY);
+    if (!stored) {
+      await this.init();
+      return this.getSettings();
     }
-  }
-
-  private async enforceLimit(): Promise<void> {
-    const all = await this.getAllPlaybooks();
     
-    if (all.length > this.MAX_PLAYBOOKS) {
-      // Keep favorites and most recent
-      const nonFavorites = all.filter(p => !p.metadata.favorite);
-      const toDelete = nonFavorites.slice(this.MAX_PLAYBOOKS - all.filter(p => p.metadata.favorite).length);
-      
-      for (const playbook of toDelete) {
-        await this.deletePlaybook(playbook.id);
-      }
+    try {
+      return JSON.parse(stored) as AppSettings;
+    } catch {
+      await this.init();
+      return this.getSettings();
     }
   }
 
-  private generateId(): string {
-    return `pb_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  async updateSettings(updates: Partial<AppSettings>): Promise<void> {
+    const current = await this.getSettings();
+    const updated = { ...current, ...updates };
+    localStorage.setItem(this.SETTINGS_KEY, JSON.stringify(updated));
   }
 
   async clearAll(): Promise<void> {
-    if (!this.db) await this.init();
-    
-    const tx = this.db!.transaction('playbooks', 'readwrite');
-    await tx.objectStore('playbooks').clear();
-    await tx.done;
+    localStorage.removeItem(this.STORAGE_KEY);
+    localStorage.removeItem(this.SETTINGS_KEY);
+    await this.init();
   }
 
-  async getStorageInfo(): Promise<{ count: number; size: number }> {
+  async exportData(): Promise<string> {
     const playbooks = await this.getAllPlaybooks();
-    const size = new Blob([JSON.stringify(playbooks)]).size;
+    const settings = await this.getSettings();
     
-    return {
-      count: playbooks.length,
-      size
-    };
+    return JSON.stringify({
+      version: '1.0',
+      exportDate: new Date().toISOString(),
+      playbooks,
+      settings
+    }, null, 2);
+  }
+
+  async importData(jsonData: string): Promise<void> {
+    try {
+      const data = JSON.parse(jsonData);
+      
+      if (data.playbooks) {
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data.playbooks));
+      }
+      
+      if (data.settings) {
+        localStorage.setItem(this.SETTINGS_KEY, JSON.stringify(data.settings));
+      }
+    } catch (error) {
+      throw new Error('Invalid import data format');
+    }
   }
 }
