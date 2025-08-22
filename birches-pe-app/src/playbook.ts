@@ -37,172 +37,139 @@ class PlaybookDisplay {
     }
 
     this.container.innerHTML = `
-      <nav class="nav glass">
-        <div class="container">
-          <div class="nav-container">
-            <a href="/" class="nav-logo">
-              <img src="/birch-tree-logo.svg" alt="Birch Tree Blueprint" width="32" height="32" />
-              <span>Birch Tree Blueprint</span>
+      <!-- Navigation Bar -->
+      <nav class="nav-bar">
+        <div class="nav-container">
+          <a href="/" class="nav-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C10.5 2 9.5 3 9.5 4.5c0 .7.3 1.3.7 1.8L8.5 8H7c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h.5l2.2 5.5c.2.4.6.5 1 .5s.8-.1 1-.5L14 14h.5c1.1 0 2-.9 2-2v-2c0-1.1-.9-2-2-2h-1.5l-1.7-1.7c.4-.5.7-1.1.7-1.8C14.5 3 13.5 2 12 2z"/>
+            </svg>
+            <span>Birch Tree Blueprint</span>
+          </a>
+          <div style="display: flex; gap: 12px;">
+            <a href="/" class="btn btn-ghost">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              Back
             </a>
-            <div class="nav-menu">
-              <a href="/" class="btn btn-ghost">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M19 12H5M12 19l-7-7 7-7"/>
-                </svg>
-                Back to Generator
-              </a>
-              <button class="btn btn-primary" id="print-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="6 9 6 2 18 2 18 9"/>
-                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
-                  <rect x="6" y="14" width="12" height="8"/>
-                </svg>
-                Print
-              </button>
-              <button class="btn btn-ghost btn-icon" id="theme-toggle" aria-label="Toggle theme">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="5"/>
-                  <line x1="12" y1="1" x2="12" y2="3"/>
-                  <line x1="12" y1="21" x2="12" y2="23"/>
-                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                </svg>
-              </button>
-            </div>
+            <button class="btn btn-primary" id="print-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 6 2 18 2 18 9"/>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                <rect x="6" y="14" width="12" height="8"/>
+              </svg>
+              Print
+            </button>
           </div>
         </div>
       </nav>
 
-      <div class="container mt-4">
-        <div class="playbook-header card glass mb-4">
-          <h1>${this.playbook.title}</h1>
-          <div class="flex gap-2 flex-wrap mt-2">
-            <span class="badge badge-primary">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-              </svg>
-              ${this.userInput.gradeLevel}
-            </span>
-            <span class="badge">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <polyline points="12 6 12 12 16 14"/>
-              </svg>
-              ${this.userInput.duration} minutes
-            </span>
-            <span class="badge">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                ${this.userInput.environment === 'indoor' ? 
-                  '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>' : 
-                  '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>'}
-              </svg>
-              ${this.userInput.environment === 'indoor' ? 'Indoor' : 'Outdoor'}
-            </span>
-            ${this.userInput.standards.map(s => `
-              <span class="badge badge-success">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M9 11l3 3L22 4"/>
-                  <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
-                </svg>
-                ${s}
-              </span>
-            `).join('')}
+      <!-- Playbook Content -->
+      <div class="playbook-container" style="padding-top: calc(48px + 64px);">
+        <!-- Playbook Header -->
+        <div class="playbook-header">
+          <h1 class="playbook-title fade-in-up">${this.playbook.title}</h1>
+          <div class="playbook-meta fade-in-up">
+            <span>${this.userInput.gradeLevel}</span>
+            <span>•</span>
+            <span>${this.userInput.duration} minutes</span>
+            <span>•</span>
+            <span>${this.userInput.environment === 'indoor' ? 'Indoor' : 'Outdoor'}</span>
           </div>
         </div>
 
-        <div class="user-input-summary card glass mb-4">
-          <h3>Configuration Details</h3>
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <strong>Equipment Level:</strong> ${this.userInput.equipmentLevel || 'Standard'}
-            </div>
-            <div>
-              <strong>Team-Based:</strong> ${this.userInput.activityPreferences?.teamBased ? 'Yes' : 'No'}
-            </div>
-            <div>
-              <strong>Competitive:</strong> ${this.userInput.activityPreferences?.competitive ? 'Yes' : 'No'}
-            </div>
-            <div>
-              <strong>Creative:</strong> ${this.userInput.activityPreferences?.creative ? 'Yes' : 'No'}
-            </div>
-          </div>
-        </div>
-
-        <div class="playbook-overview card glass mb-4">
+        <!-- Overview Section -->
+        <div class="playbook-content fade-in-up">
           <h2>Overview</h2>
           <p>${this.playbook.overview}</p>
           
-          <h3 class="mt-3">Program Goals</h3>
+          <h2>Program Goals</h2>
           <ul>
             ${this.playbook.goals.map(goal => `<li>${goal}</li>`).join('')}
           </ul>
-        </div>
 
-        <h2 class="mb-3">Lesson Plans</h2>
-        <div class="lessons-container">
+          <h2>Standards Alignment</h2>
+          <div class="grid grid-3" style="margin-top: 24px;">
+            ${this.userInput.standards.map(standard => `
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 11l3 3L22 4"/>
+                    <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+                  </svg>
+                </div>
+                <h3 class="feature-title" style="text-transform: capitalize;">${standard.replace(/_/g, ' ')}</h3>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Lessons Section -->
+          <h2 style="margin-top: 64px;">Lesson Plans</h2>
           ${this.playbook.lessons.map((lesson, index) => `
-            <div class="lesson-card card glass mb-4">
-              <h3>Lesson ${index + 1}: ${lesson.title}</h3>
+            <div class="card" style="margin-top: 32px;">
+              <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 24px;">
+                Lesson ${index + 1}: ${lesson.title}
+              </h3>
               
-              <div class="lesson-components grid grid-cols-2 gap-3 mt-3">
-                <div class="component-card">
-                  <h4>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="inline">
-                      <path d="M13 2L3 14l9 0 -1 8 10-12-9 0 1-8"/>
-                    </svg>
-                    Warm-up (${lesson.warmUp.duration} min)
-                  </h4>
-                  <p>${lesson.warmUp.description}</p>
-                  ${lesson.warmUp.equipment.length > 0 ? 
-                    `<small>Equipment: ${lesson.warmUp.equipment.join(', ')}</small>` : ''}
-                </div>
-
-                <div class="component-card">
-                  <h4>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="inline">
-                      <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                      <path d="M2 17l10 5 10-5"/>
-                    </svg>
-                    Skill Focus (${lesson.skillFocus.duration} min)
-                  </h4>
-                  <p>${lesson.skillFocus.description}</p>
-                  <small>Skills: ${lesson.skillFocus.skills.join(', ')}</small>
-                </div>
+              <!-- Warm-up -->
+              <div style="margin-bottom: 32px;">
+                <h4 style="font-size: 19px; font-weight: 600; margin-bottom: 12px; color: var(--apple-blue);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 8px;">
+                    <path d="M13 2L3 14l9 0 -1 8 10-12-9 0 1-8"/>
+                  </svg>
+                  Warm-up (${lesson.warmUp.duration} min)
+                </h4>
+                <p style="margin-bottom: 8px;">${lesson.warmUp.description}</p>
+                ${lesson.warmUp.equipment.length > 0 ? 
+                  `<p style="font-size: 14px; color: var(--color-text-secondary);">Equipment: ${lesson.warmUp.equipment.join(', ')}</p>` : ''}
               </div>
 
-              <div class="main-activity-card mt-3">
-                <h4>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="inline">
+              <!-- Skill Focus -->
+              <div style="margin-bottom: 32px;">
+                <h4 style="font-size: 19px; font-weight: 600; margin-bottom: 12px; color: var(--apple-blue);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 8px;">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                  </svg>
+                  Skill Focus (${lesson.skillFocus.duration} min)
+                </h4>
+                <p style="margin-bottom: 8px;">${lesson.skillFocus.description}</p>
+                <p style="font-size: 14px; color: var(--color-text-secondary);">Skills: ${lesson.skillFocus.skills.join(', ')}</p>
+              </div>
+
+              <!-- Main Activity -->
+              <div style="margin-bottom: 32px; padding: 24px; background: var(--apple-gray-02); border-radius: 12px;">
+                <h4 style="font-size: 19px; font-weight: 600; margin-bottom: 12px;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 8px;">
                     <circle cx="12" cy="12" r="10"/>
                     <path d="M12 6v6l4 2"/>
                   </svg>
                   Main Activity (${lesson.mainActivity.duration} min): ${lesson.mainActivity.name}
                 </h4>
-                <p>${lesson.mainActivity.description}</p>
-                <h5>Rules:</h5>
-                <ul>
+                <p style="margin-bottom: 16px;">${lesson.mainActivity.description}</p>
+                <h5 style="font-size: 17px; font-weight: 600; margin-bottom: 8px;">Rules:</h5>
+                <ul style="margin-left: 20px;">
                   ${lesson.mainActivity.rules.map(rule => `<li>${rule}</li>`).join('')}
                 </ul>
                 ${lesson.mainActivity.equipment.length > 0 ? 
-                  `<small>Equipment: ${lesson.mainActivity.equipment.join(', ')}</small>` : ''}
+                  `<p style="font-size: 14px; color: var(--color-text-secondary); margin-top: 16px;">Equipment: ${lesson.mainActivity.equipment.join(', ')}</p>` : ''}
               </div>
 
-              <div class="differentiation-card grid grid-cols-2 gap-3 mt-3">
-                <div>
-                  <h5>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="inline">
+              <!-- Differentiation -->
+              <div class="grid grid-2" style="margin-bottom: 32px;">
+                <div class="card" style="background: var(--apple-gray-02);">
+                  <h5 style="font-size: 17px; font-weight: 600; margin-bottom: 8px; color: #34c759;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 8px;">
                       <path d="M12 5v14M5 12h14"/>
                     </svg>
                     Easier Modification
                   </h5>
                   <p>${lesson.differentiation.easier}</p>
                 </div>
-                <div>
-                  <h5>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="inline">
+                <div class="card" style="background: var(--apple-gray-02);">
+                  <h5 style="font-size: 17px; font-weight: 600; margin-bottom: 8px; color: #ff9500;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 8px;">
                       <path d="M12 5v14M5 12h14M16 8l4-4M8 16l-4 4"/>
                     </svg>
                     Harder Modification
@@ -211,53 +178,52 @@ class PlaybookDisplay {
                 </div>
               </div>
 
-              <div class="closure-assessment grid grid-cols-2 gap-3 mt-3">
+              <!-- Closure & Assessment -->
+              <div class="grid grid-2" style="margin-bottom: 32px;">
                 <div>
-                  <h5>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="inline">
+                  <h5 style="font-size: 17px; font-weight: 600; margin-bottom: 8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 8px;">
                       <circle cx="12" cy="12" r="10"/>
                       <path d="M8 12h8M12 8v8"/>
                     </svg>
                     Closure (${lesson.closure.duration} min)
                   </h5>
-                  <p>${lesson.closure.description}</p>
+                  <p style="margin-bottom: 8px;">${lesson.closure.description}</p>
                   <p><strong>Reflection:</strong> ${lesson.closure.reflection}</p>
                 </div>
                 <div>
-                  <h5>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="inline">
+                  <h5 style="font-size: 17px; font-weight: 600; margin-bottom: 8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 8px;">
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                       <polyline points="14 2 14 8 20 8"/>
-                      <line x1="16" y1="13" x2="8" y2="13"/>
-                      <line x1="16" y1="17" x2="8" y2="17"/>
                     </svg>
                     Assessment
                   </h5>
-                  <p><strong>Formative:</strong> ${lesson.assessment.formative}</p>
+                  <p style="margin-bottom: 8px;"><strong>Formative:</strong> ${lesson.assessment.formative}</p>
                   <p><strong>Summative:</strong> ${lesson.assessment.summative}</p>
                 </div>
               </div>
 
               ${lesson.safety.length > 0 ? `
-                <div class="safety-card mt-3">
-                  <h5>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="inline">
+                <div style="padding: 16px; background: rgba(255, 59, 48, 0.1); border-radius: 12px; margin-bottom: 24px;">
+                  <h5 style="font-size: 17px; font-weight: 600; margin-bottom: 8px; color: #ff3b30;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 8px;">
                       <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
                       <line x1="12" y1="9" x2="12" y2="13"/>
                       <line x1="12" y1="17" x2="12.01" y2="17"/>
                     </svg>
                     Safety Considerations
                   </h5>
-                  <ul>
+                  <ul style="margin-left: 20px;">
                     ${lesson.safety.map(s => `<li>${s}</li>`).join('')}
                   </ul>
                 </div>
               ` : ''}
 
               ${lesson.socialEmotional ? `
-                <div class="sel-card mt-3">
-                  <h5>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="inline">
+                <div style="padding: 16px; background: rgba(88, 86, 214, 0.1); border-radius: 12px;">
+                  <h5 style="font-size: 17px; font-weight: 600; margin-bottom: 8px; color: #5856d6;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 8px;">
                       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                     </svg>
                     Social-Emotional Learning
@@ -269,12 +235,12 @@ class PlaybookDisplay {
           `).join('')}
         </div>
 
-        <div class="actions-footer card glass mt-4 flex justify-center gap-3">
+        <!-- Actions -->
+        <div class="playbook-actions">
           <button class="btn btn-primary" id="save-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
               <polyline points="17 21 17 13 7 13 7 21"/>
-              <polyline points="7 3 7 8 15 8"/>
             </svg>
             Save Playbook
           </button>
@@ -302,26 +268,27 @@ class PlaybookDisplay {
 
   private renderEmpty() {
     this.container.innerHTML = `
-      <nav class="nav glass">
-        <div class="container">
-          <div class="nav-container">
-            <a href="/" class="nav-logo">
-              <img src="/birch-tree-logo.svg" alt="Birch Tree Blueprint" width="32" height="32" />
-              <span>Birch Tree Blueprint</span>
-            </a>
-          </div>
+      <!-- Navigation Bar -->
+      <nav class="nav-bar">
+        <div class="nav-container">
+          <a href="/" class="nav-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C10.5 2 9.5 3 9.5 4.5c0 .7.3 1.3.7 1.8L8.5 8H7c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h.5l2.2 5.5c.2.4.6.5 1 .5s.8-.1 1-.5L14 14h.5c1.1 0 2-.9 2-2v-2c0-1.1-.9-2-2-2h-1.5l-1.7-1.7c.4-.5.7-1.1.7-1.8C14.5 3 13.5 2 12 2z"/>
+            </svg>
+            <span>Birch Tree Blueprint</span>
+          </a>
         </div>
       </nav>
       
-      <div class="container mt-4">
-        <div class="card glass text-center p-4">
-          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="mx-auto mb-3 opacity-30">
+      <div class="container" style="padding-top: 120px;">
+        <div class="card" style="text-align: center; padding: 64px; max-width: 600px; margin: 0 auto;">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin: 0 auto 24px; opacity: 0.3;">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
             <polyline points="14 2 14 8 20 8"/>
           </svg>
-          <h2>No Playbook Found</h2>
-          <p class="text-muted mb-3">Generate a playbook first to see it here.</p>
-          <a href="/" class="btn btn-primary">Go to Generator</a>
+          <h2 style="font-size: 32px; font-weight: 600; margin-bottom: 12px;">No Playbook Found</h2>
+          <p style="color: var(--color-text-secondary); margin-bottom: 32px;">Generate a playbook first to see it here.</p>
+          <a href="/" class="btn btn-primary btn-large">Go to Generator</a>
         </div>
       </div>
     `;
@@ -329,23 +296,29 @@ class PlaybookDisplay {
 
   private renderError() {
     this.container.innerHTML = `
-      <div class="container mt-4">
-        <div class="card glass text-center p-4">
-          <h2>Error Loading Playbook</h2>
-          <p class="text-muted mb-3">There was an error loading your playbook.</p>
-          <a href="/" class="btn btn-primary">Back to Generator</a>
+      <!-- Navigation Bar -->
+      <nav class="nav-bar">
+        <div class="nav-container">
+          <a href="/" class="nav-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C10.5 2 9.5 3 9.5 4.5c0 .7.3 1.3.7 1.8L8.5 8H7c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h.5l2.2 5.5c.2.4.6.5 1 .5s.8-.1 1-.5L14 14h.5c1.1 0 2-.9 2-2v-2c0-1.1-.9-2-2-2h-1.5l-1.7-1.7c.4-.5.7-1.1.7-1.8C14.5 3 13.5 2 12 2z"/>
+            </svg>
+            <span>Birch Tree Blueprint</span>
+          </a>
+        </div>
+      </nav>
+      
+      <div class="container" style="padding-top: 120px;">
+        <div class="card" style="text-align: center; padding: 64px; max-width: 600px; margin: 0 auto;">
+          <h2 style="font-size: 32px; font-weight: 600; margin-bottom: 12px;">Error Loading Playbook</h2>
+          <p style="color: var(--color-text-secondary); margin-bottom: 32px;">There was an error loading your playbook.</p>
+          <a href="/" class="btn btn-primary btn-large">Back to Generator</a>
         </div>
       </div>
     `;
   }
 
   private attachEventListeners() {
-    // Theme toggle
-    document.getElementById('theme-toggle')?.addEventListener('click', () => {
-      document.documentElement.toggleAttribute('data-theme');
-      localStorage.setItem('theme', document.documentElement.hasAttribute('data-theme') ? 'dark' : 'light');
-    });
-
     // Print button
     document.getElementById('print-btn')?.addEventListener('click', () => {
       window.print();
@@ -378,12 +351,51 @@ class PlaybookDisplay {
     const trimmed = playbooks.slice(0, 10);
     localStorage.setItem('savedPlaybooks', JSON.stringify(trimmed));
     
-    alert('Playbook saved successfully!');
+    // Show notification
+    this.showNotification('Playbook saved successfully!');
   }
 
   private showExportOptions() {
-    // TODO: Implement export modal
-    alert('Export functionality coming soon!');
+    // Create modal
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay active';
+    modal.innerHTML = `
+      <div class="modal">
+        <h3>Export Playbook</h3>
+        <p>Select export format:</p>
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px;">
+          <button class="btn btn-primary" onclick="this.closest('.modal-overlay').remove(); window.print();">PDF (Print)</button>
+          <button class="btn btn-secondary" onclick="this.closest('.modal-overlay').remove();">Word Document</button>
+          <button class="btn btn-secondary" onclick="this.closest('.modal-overlay').remove();">JSON</button>
+        </div>
+        <button class="btn btn-ghost" style="margin-top: 24px;" onclick="this.closest('.modal-overlay').remove()">Cancel</button>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+
+  private showNotification(message: string) {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--apple-blue);
+      color: white;
+      padding: 16px 24px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      z-index: 10000;
+      animation: slideIn 0.3s ease-out;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.style.animation = 'slideOut 0.3s ease-out';
+      setTimeout(() => notification.remove(), 300);
+    }, 3000);
   }
 }
 
@@ -392,11 +404,5 @@ document.addEventListener('DOMContentLoaded', () => {
   const app = document.querySelector<HTMLDivElement>('#playbook-app');
   if (app) {
     new PlaybookDisplay(app);
-  }
-  
-  // Load theme preference
-  const theme = localStorage.getItem('theme');
-  if (theme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
   }
 });
