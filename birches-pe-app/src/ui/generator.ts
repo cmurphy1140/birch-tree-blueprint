@@ -222,6 +222,140 @@ export class GeneratorUI {
           </div>
         </div>
 
+        <!-- Resources & Materials Section -->
+        <div class="container mt-4">
+          <div class="resources-section">
+            <div class="text-center mb-4">
+              <h2 class="resources-title">Resources & Materials</h2>
+              <p class="resources-subtitle">Essential tools and documents to enhance your PE teaching experience</p>
+            </div>
+            
+            <div class="resources-grid grid grid-cols-4 gap-4">
+              <!-- Course Syllabus -->
+              <div class="resource-card card glass card-gradient blue" data-resource="syllabus">
+                <div class="resource-icon">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
+                  </svg>
+                </div>
+                <div class="resource-content">
+                  <h3>Course Syllabus</h3>
+                  <p>Comprehensive PE curriculum outline with standards alignment and learning objectives</p>
+                  <button class="btn btn-outline resource-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7 10 12 15 17 10"/>
+                      <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Download
+                  </button>
+                </div>
+              </div>
+
+              <!-- Indoor Activities -->
+              <div class="resource-card card glass card-gradient green" data-resource="indoor">
+                <div class="resource-icon">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                    <path d="M7 7h10v6H7z"/>
+                  </svg>
+                </div>
+                <div class="resource-content">
+                  <h3>Indoor Activities</h3>
+                  <p>Weather-proof activities and games perfect for gymnasium and classroom settings</p>
+                  <button class="btn btn-outline resource-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                      <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    Explore
+                  </button>
+                </div>
+              </div>
+
+              <!-- Outdoor Activities -->
+              <div class="resource-card card glass card-gradient orange" data-resource="outdoor">
+                <div class="resource-icon">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                  </svg>
+                </div>
+                <div class="resource-content">
+                  <h3>Outdoor Activities</h3>
+                  <p>Field games and nature-based activities that maximize outdoor learning spaces</p>
+                  <button class="btn btn-outline resource-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                      <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    Explore
+                  </button>
+                </div>
+              </div>
+
+              <!-- Strategy Worksheet -->
+              <div class="resource-card card glass card-gradient purple" data-resource="worksheet">
+                <div class="resource-icon">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <line x1="18" y1="20" x2="18" y2="10"/>
+                    <line x1="12" y1="20" x2="12" y2="4"/>
+                    <line x1="6" y1="20" x2="6" y2="14"/>
+                    <circle cx="12" cy="2" r="2"/>
+                    <circle cx="18" cy="8" r="2"/>
+                    <circle cx="6" cy="12" r="2"/>
+                  </svg>
+                </div>
+                <div class="resource-content">
+                  <h3>Strategy Worksheet</h3>
+                  <p>Assessment tools and planning templates for tracking student progress and goals</p>
+                  <button class="btn btn-outline resource-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7 10 12 15 17 10"/>
+                      <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Download
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Stats Row -->
+            <div class="resources-stats grid grid-cols-4 gap-4 mt-4">
+              <div class="stat-card card glass text-center">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Activities</div>
+              </div>
+              <div class="stat-card card glass text-center">
+                <div class="stat-number">K-8</div>
+                <div class="stat-label">Grade Levels</div>
+              </div>
+              <div class="stat-card card glass text-center">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Standards Aligned</div>
+              </div>
+              <div class="stat-card card glass text-center">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Access</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Settings Modal -->
         <div id="settings-modal" class="modal-overlay">
           <div class="modal">
@@ -408,6 +542,144 @@ export class GeneratorUI {
     document.getElementById('use-ai')?.addEventListener('change', (e) => {
       this.useAI = (e.target as HTMLInputElement).checked;
     });
+
+    // Resource cards
+    this.attachResourceHandlers();
+  }
+
+  private attachResourceHandlers() {
+    // Resource card click handlers
+    document.querySelectorAll('.resource-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const resourceType = (e.currentTarget as HTMLElement).dataset.resource;
+        this.handleResourceClick(resourceType);
+      });
+    });
+
+    // Resource button click handlers (prevent event bubbling)
+    document.querySelectorAll('.resource-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = (e.target as HTMLElement).closest('.resource-card');
+        const resourceType = card?.getAttribute('data-resource') || undefined;
+        this.handleResourceAction(resourceType);
+      });
+    });
+  }
+
+  private handleResourceClick(resourceType: string | undefined) {
+    if (!resourceType) return;
+    
+    // Add ripple effect
+    this.addRippleEffect(event?.target as HTMLElement);
+    
+    // Handle different resource types
+    switch (resourceType) {
+      case 'syllabus':
+        this.showResourceModal('Course Syllabus', 'A comprehensive PE curriculum outline with standards alignment and learning objectives for all grade levels.');
+        break;
+      case 'indoor':
+        this.showResourceModal('Indoor Activities', 'Weather-proof activities and games perfect for gymnasium and classroom settings.');
+        break;
+      case 'outdoor':
+        this.showResourceModal('Outdoor Activities', 'Field games and nature-based activities that maximize outdoor learning spaces.');
+        break;
+      case 'worksheet':
+        this.showResourceModal('Strategy Worksheet', 'Assessment tools and planning templates for tracking student progress and goals.');
+        break;
+    }
+  }
+
+  private handleResourceAction(resourceType: string | undefined) {
+    if (!resourceType) return;
+    
+    switch (resourceType) {
+      case 'syllabus':
+      case 'worksheet':
+        this.downloadResource(resourceType);
+        break;
+      case 'indoor':
+      case 'outdoor':
+        this.exploreActivities(resourceType);
+        break;
+    }
+  }
+
+  private addRippleEffect(element: HTMLElement) {
+    const card = element.closest('.resource-card') as HTMLElement;
+    if (!card) return;
+
+    const ripple = document.createElement('div');
+    ripple.style.position = 'absolute';
+    ripple.style.borderRadius = '50%';
+    ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+    ripple.style.transform = 'scale(0)';
+    ripple.style.animation = 'ripple 0.6s linear';
+    ripple.style.left = '50%';
+    ripple.style.top = '50%';
+    ripple.style.width = '100px';
+    ripple.style.height = '100px';
+    ripple.style.marginLeft = '-50px';
+    ripple.style.marginTop = '-50px';
+    ripple.style.pointerEvents = 'none';
+
+    card.style.position = 'relative';
+    card.appendChild(ripple);
+
+    setTimeout(() => {
+      ripple.remove();
+    }, 600);
+  }
+
+  private showResourceModal(title: string, description: string) {
+    // Create and show a modal with resource information
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay active';
+    modal.innerHTML = `
+      <div class="modal">
+        <h3>${title}</h3>
+        <p>${description}</p>
+        <div class="flex justify-end mt-3">
+          <button class="btn btn-primary resource-modal-close">Got it</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Close modal handler
+    modal.querySelector('.resource-modal-close')?.addEventListener('click', () => {
+      modal.classList.remove('active');
+      setTimeout(() => modal.remove(), 300);
+    });
+
+    // Close on overlay click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
+      }
+    });
+  }
+
+  private downloadResource(type: string) {
+    // Simulate resource download
+    const messages = {
+      syllabus: 'Course Syllabus downloaded! Check your downloads folder.',
+      worksheet: 'Strategy Worksheet downloaded! Check your downloads folder.'
+    };
+    
+    alert(messages[type as keyof typeof messages] || 'Resource downloaded!');
+  }
+
+  private exploreActivities(type: string) {
+    // Simulate navigation to activities
+    const messages = {
+      indoor: 'Exploring indoor activities... This would navigate to the indoor activities section.',
+      outdoor: 'Exploring outdoor activities... This would navigate to the outdoor activities section.'
+    };
+    
+    alert(messages[type as keyof typeof messages] || 'Exploring activities...');
   }
 
   private async handleGenerate(e: Event) {
