@@ -1,0 +1,324 @@
+{
+  "standards": [
+    {
+      "id": "PE.K-2.1",
+      "category": "Motor Skills",
+      "subcategory": "Locomotor",
+      "grade": "K-2",
+      "description": "Demonstrates competency in fundamental motor skills and movement patterns needed to perform a variety of physical activities.",
+      "keywords": ["running", "jumping", "hopping", "skipping", "galloping", "sliding"]
+    },
+    {
+      "id": "PE.K-2.2",
+      "category": "Motor Skills",
+      "subcategory": "Non-locomotor",
+      "grade": "K-2",
+      "description": "Demonstrates understanding of movement concepts, principles, strategies, and tactics as they apply to the learning and performance of physical activities.",
+      "keywords": ["stretching", "bending", "twisting", "balancing", "flexibility"]
+    },
+    {
+      "id": "PE.K-2.3",
+      "category": "Motor Skills",
+      "subcategory": "Manipulative",
+      "grade": "K-2",
+      "description": "Demonstrates competency in manipulative skills using various implements and objects.",
+      "keywords": ["throwing", "catching", "kicking", "striking", "dribbling"]
+    },
+    {
+      "id": "PE.K-2.4",
+      "category": "Physical Fitness",
+      "subcategory": "Health-related",
+      "grade": "K-2",
+      "description": "Exhibits a physically active lifestyle that provides opportunities for enjoyment, challenge, self-expression, and social interaction.",
+      "keywords": ["cardiovascular", "endurance", "active-lifestyle", "enjoyment"]
+    },
+    {
+      "id": "PE.K-2.5",
+      "category": "Physical Fitness",
+      "subcategory": "Flexibility",
+      "grade": "K-2",
+      "description": "Demonstrates understanding of and competency in activities that develop and maintain muscular strength and endurance, flexibility, and cardiorespiratory endurance.",
+      "keywords": ["flexibility", "stretching", "range-of-motion", "recovery"]
+    },
+    {
+      "id": "PE.K-2.6",
+      "category": "Personal/Social",
+      "subcategory": "Fair Play",
+      "grade": "K-2",
+      "description": "Demonstrates responsible personal and social behavior that respects self and others in physical activity settings.",
+      "keywords": ["fair-play", "respect", "inclusion", "cooperation"]
+    },
+    {
+      "id": "PE.K-2.7",
+      "category": "Personal/Social",
+      "subcategory": "Teamwork",
+      "grade": "K-2",
+      "description": "Values physical activity for health, enjoyment, challenge, self-expression, and social interaction.",
+      "keywords": ["teamwork", "cooperation", "social-interaction", "challenge"]
+    },
+    {
+      "id": "PE.K-2.8",
+      "category": "Motor Skills",
+      "subcategory": "Body Control",
+      "grade": "K-2",
+      "description": "Demonstrates basic body control and spatial awareness in movement activities.",
+      "keywords": ["balance", "coordination", "spatial-awareness", "body-control"]
+    },
+    {
+      "id": "PE.K-2.9",
+      "category": "Movement Concepts",
+      "subcategory": "Rhythm",
+      "grade": "K-2",
+      "description": "Demonstrates understanding of movement concepts including rhythm, tempo, and coordination.",
+      "keywords": ["rhythm", "tempo", "coordination", "music", "dance"]
+    },
+    {
+      "id": "PE.3-5.1",
+      "category": "Motor Skills",
+      "subcategory": "Fundamental Skills",
+      "grade": "3-5",
+      "description": "Demonstrates competency in fundamental motor skills and movement patterns needed to perform a variety of physical activities.",
+      "keywords": ["motor-skills", "movement-patterns", "fundamental-skills", "competency"]
+    },
+    {
+      "id": "PE.3-5.2",
+      "category": "Motor Skills",
+      "subcategory": "Cardiovascular",
+      "grade": "3-5",
+      "description": "Demonstrates understanding of movement concepts, principles, strategies, and tactics as they apply to the learning and performance of physical activities.",
+      "keywords": ["cardiovascular", "endurance", "aerobic", "fitness"]
+    },
+    {
+      "id": "PE.3-5.3",
+      "category": "Motor Skills",
+      "subcategory": "Flexibility",
+      "grade": "3-5",
+      "description": "Demonstrates competency in flexibility and mobility exercises that enhance physical performance.",
+      "keywords": ["flexibility", "mobility", "stretching", "range-of-motion"]
+    },
+    {
+      "id": "PE.3-5.4",
+      "category": "Motor Skills",
+      "subcategory": "Ball Skills",
+      "grade": "3-5",
+      "description": "Demonstrates competency in ball handling skills including dribbling, passing, and catching.",
+      "keywords": ["ball-handling", "dribbling", "passing", "catching", "control"]
+    },
+    {
+      "id": "PE.3-5.5",
+      "category": "Games/Sports",
+      "subcategory": "Strategy",
+      "grade": "3-5",
+      "description": "Demonstrates understanding of strategy and tactics in games and sports activities.",
+      "keywords": ["strategy", "tactics", "game-play", "decision-making"]
+    },
+    {
+      "id": "PE.3-5.6",
+      "category": "Motor Skills",
+      "subcategory": "Soccer Skills",
+      "grade": "3-5",
+      "description": "Demonstrates competency in soccer skills including passing, receiving, and ball control.",
+      "keywords": ["soccer", "passing", "receiving", "ball-control", "accuracy"]
+    },
+    {
+      "id": "PE.3-5.7",
+      "category": "Physical Fitness",
+      "subcategory": "Recovery",
+      "grade": "3-5",
+      "description": "Demonstrates understanding of proper cool-down and recovery techniques after physical activity.",
+      "keywords": ["recovery", "cool-down", "heart-rate", "relaxation"]
+    },
+    {
+      "id": "PE.3-5.8",
+      "category": "Physical Fitness",
+      "subcategory": "Flexibility Training",
+      "grade": "3-5",
+      "description": "Demonstrates competency in static and dynamic flexibility training methods.",
+      "keywords": ["static-stretching", "flexibility-training", "recovery", "muscle-care"]
+    },
+    {
+      "id": "PE.3-5.9",
+      "category": "Games/Sports",
+      "subcategory": "Modified Games",
+      "grade": "3-5",
+      "description": "Participates effectively in modified games that emphasize skill development and fair play.",
+      "keywords": ["modified-games", "skill-development", "participation", "inclusion"]
+    },
+    {
+      "id": "PE.3-5.10",
+      "category": "Games/Sports",
+      "subcategory": "Traditional Games",
+      "grade": "3-5",
+      "description": "Demonstrates competency in traditional playground and recreational games.",
+      "keywords": ["traditional-games", "playground-games", "recreation", "cultural-games"]
+    },
+    {
+      "id": "PE.3-5.11",
+      "category": "Games/Sports",
+      "subcategory": "Team Sports",
+      "grade": "3-5",
+      "description": "Demonstrates understanding of basic team sport concepts and skills.",
+      "keywords": ["team-sports", "cooperation", "skill-application", "game-concepts"]
+    },
+    {
+      "id": "PE.3-5.12",
+      "category": "Motor Skills",
+      "subcategory": "Gymnastics",
+      "grade": "3-5",
+      "description": "Demonstrates basic gymnastics skills with emphasis on safety and proper technique.",
+      "keywords": ["gymnastics", "body-control", "strength", "flexibility", "safety"]
+    },
+    {
+      "id": "PE.3-5.13",
+      "category": "Movement Concepts",
+      "subcategory": "Creative Movement",
+      "grade": "3-5",
+      "description": "Demonstrates creativity and self-expression through dance and movement activities.",
+      "keywords": ["creative-movement", "dance", "self-expression", "rhythm"]
+    },
+    {
+      "id": "PE.6-8.1",
+      "category": "Motor Skills",
+      "subcategory": "Advanced Skills",
+      "grade": "6-8",
+      "description": "Demonstrates competency in motor skills and movement patterns needed to perform a variety of physical activities.",
+      "keywords": ["advanced-skills", "motor-patterns", "physical-activities", "competency"]
+    },
+    {
+      "id": "PE.6-8.2",
+      "category": "Motor Skills",
+      "subcategory": "Flexibility Training",
+      "grade": "6-8",
+      "description": "Demonstrates advanced understanding of flexibility training and injury prevention.",
+      "keywords": ["flexibility-training", "injury-prevention", "advanced-stretching", "mobility"]
+    },
+    {
+      "id": "PE.6-8.3",
+      "category": "Games/Sports",
+      "subcategory": "Basketball Skills",
+      "grade": "6-8",
+      "description": "Demonstrates proficiency in basketball skills including dribbling, shooting, and passing.",
+      "keywords": ["basketball", "dribbling", "shooting", "passing", "game-skills"]
+    },
+    {
+      "id": "PE.6-8.4",
+      "category": "Games/Sports",
+      "subcategory": "Team Strategy",
+      "grade": "6-8",
+      "description": "Applies movement concepts and strategies to the performance of motor skills in game situations.",
+      "keywords": ["team-strategy", "game-situations", "tactical-awareness", "decision-making"]
+    },
+    {
+      "id": "PE.6-8.5",
+      "category": "Games/Sports",
+      "subcategory": "Ultimate Sports",
+      "grade": "6-8",
+      "description": "Demonstrates competency in ultimate frisbee and similar invasion games.",
+      "keywords": ["ultimate-frisbee", "invasion-games", "throwing", "catching", "strategy"]
+    },
+    {
+      "id": "PE.6-8.6",
+      "category": "Motor Skills",
+      "subcategory": "Soccer Advanced",
+      "grade": "6-8",
+      "description": "Demonstrates advanced soccer skills including tactical awareness and game play.",
+      "keywords": ["soccer-advanced", "tactical-awareness", "game-play", "skill-combination"]
+    },
+    {
+      "id": "PE.6-8.7",
+      "category": "Physical Fitness",
+      "subcategory": "Advanced Flexibility",
+      "grade": "6-8",
+      "description": "Demonstrates understanding of advanced flexibility principles and training methods.",
+      "keywords": ["advanced-flexibility", "training-methods", "performance", "recovery"]
+    },
+    {
+      "id": "PE.6-8.8",
+      "category": "Games/Sports",
+      "subcategory": "Volleyball",
+      "grade": "6-8",
+      "description": "Demonstrates competency in volleyball skills including serving, passing, and setting.",
+      "keywords": ["volleyball", "serving", "passing", "setting", "net-games"]
+    },
+    {
+      "id": "PE.6-8.9",
+      "category": "Physical Fitness",
+      "subcategory": "Cardiovascular Training",
+      "grade": "6-8",
+      "description": "Demonstrates understanding of cardiovascular training principles and methods.",
+      "keywords": ["cardiovascular-training", "endurance", "aerobic-fitness", "training-principles"]
+    },
+    {
+      "id": "PE.6-8.10",
+      "category": "Games/Sports",
+      "subcategory": "Hockey",
+      "grade": "6-8",
+      "description": "Demonstrates competency in hockey skills including stick handling and team play.",
+      "keywords": ["hockey", "stick-handling", "team-play", "game-strategy"]
+    },
+    {
+      "id": "PE.9-12.1",
+      "category": "Motor Skills",
+      "subcategory": "Specialized Skills",
+      "grade": "9-12",
+      "description": "Demonstrates competency and refinement in specialized motor skills in selected physical activities.",
+      "keywords": ["specialized-skills", "refinement", "advanced-motor-skills", "mastery"]
+    },
+    {
+      "id": "PE.9-12.2",
+      "category": "Games/Sports",
+      "subcategory": "Advanced Basketball",
+      "grade": "9-12",
+      "description": "Demonstrates advanced basketball skills and strategic game play.",
+      "keywords": ["advanced-basketball", "strategic-play", "skill-mastery", "game-performance"]
+    },
+    {
+      "id": "PE.9-12.3",
+      "category": "Games/Sports",
+      "subcategory": "Complex Strategy",
+      "grade": "9-12",
+      "description": "Applies complex movement concepts, principles, strategies, and tactics to the performance of motor skills.",
+      "keywords": ["complex-strategy", "advanced-tactics", "performance-analysis", "skill-application"]
+    },
+    {
+      "id": "PE.9-12.4",
+      "category": "Games/Sports",
+      "subcategory": "Advanced Team Sports",
+      "grade": "9-12",
+      "description": "Demonstrates leadership and advanced skills in team sport situations.",
+      "keywords": ["advanced-team-sports", "leadership", "skill-mastery", "game-leadership"]
+    },
+    {
+      "id": "PE.9-12.5",
+      "category": "Games/Sports",
+      "subcategory": "Advanced Volleyball",
+      "grade": "9-12",
+      "description": "Demonstrates mastery of volleyball skills and advanced game strategies.",
+      "keywords": ["advanced-volleyball", "skill-mastery", "game-strategies", "competitive-play"]
+    },
+    {
+      "id": "PE.9-12.6",
+      "category": "Physical Fitness",
+      "subcategory": "Advanced Training",
+      "grade": "9-12",
+      "description": "Demonstrates understanding of advanced training principles and program design.",
+      "keywords": ["advanced-training", "program-design", "fitness-principles", "performance-optimization"]
+    },
+    {
+      "id": "PE.9-12.7",
+      "category": "Lifetime Activities",
+      "subcategory": "Personal Fitness",
+      "grade": "9-12",
+      "description": "Develops and implements a personal fitness program based on individual needs and goals.",
+      "keywords": ["personal-fitness", "program-development", "individual-needs", "goal-setting"]
+    },
+    {
+      "id": "PE.9-12.8",
+      "category": "Personal/Social",
+      "subcategory": "Leadership",
+      "grade": "9-12",
+      "description": "Demonstrates leadership skills and responsible behavior in physical activity settings.",
+      "keywords": ["leadership", "responsible-behavior", "mentorship", "positive-influence"]
+    }
+  ]
+}

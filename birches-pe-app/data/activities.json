@@ -1,0 +1,502 @@
+{
+  "activities": [
+    {
+      "id": "warmup-jog",
+      "name": "Light Jogging",
+      "category": "warmup",
+      "equipment": [],
+      "duration": 5,
+      "participants": {
+        "min": 1,
+        "max": 50
+      },
+      "ageGroup": ["elementary", "middle", "high-school", "adult"],
+      "skills": ["cardiovascular"],
+      "description": "A gentle jogging warm-up to prepare the body for physical activity",
+      "instructions": [
+        "Start with slow walking for 1 minute",
+        "Gradually increase pace to light jogging",
+        "Maintain steady breathing throughout",
+        "Focus on proper running form"
+      ],
+      "variations": [
+        "Add arm circles while jogging",
+        "Include side steps and backward jogging",
+        "Incorporate high knees and butt kicks"
+      ],
+      "safetyNotes": [
+        "Ensure proper footwear",
+        "Stay hydrated",
+        "Stop if experiencing pain or discomfort"
+      ],
+      "standards": ["PE.K-2.1", "PE.3-5.2", "PE.6-8.1"]
+    },
+    {
+      "id": "warmup-stretching",
+      "name": "Dynamic Stretching",
+      "category": "warmup",
+      "equipment": [],
+      "duration": 8,
+      "participants": {
+        "min": 1,
+        "max": 50
+      },
+      "ageGroup": ["elementary", "middle", "high-school", "adult"],
+      "skills": ["flexibility", "coordination"],
+      "description": "A series of dynamic stretches to prepare muscles and joints for activity",
+      "instructions": [
+        "Perform arm circles forward and backward (10 each)",
+        "Do leg swings front to back and side to side (10 each leg)",
+        "Execute walking lunges with torso twist (8 each leg)",
+        "Complete high knees and butt kicks (30 seconds each)"
+      ],
+      "variations": [
+        "Add jumping jacks between stretches",
+        "Include ankle circles and calf raises",
+        "Perform walking quad stretches"
+      ],
+      "safetyNotes": [
+        "Never force a stretch",
+        "Move through full range of motion gradually",
+        "Maintain proper balance"
+      ],
+      "standards": ["PE.K-2.2", "PE.3-5.3", "PE.6-8.2"]
+    },
+    {
+      "id": "skill-dribbling",
+      "name": "Basketball Dribbling Skills",
+      "category": "skill",
+      "equipment": ["basketballs", "cones"],
+      "duration": 15,
+      "participants": {
+        "min": 5,
+        "max": 30
+      },
+      "ageGroup": ["elementary", "middle", "high-school"],
+      "skills": ["coordination", "ball-handling"],
+      "description": "Practice fundamental basketball dribbling techniques and ball control",
+      "instructions": [
+        "Start with stationary dribbling using dominant hand",
+        "Practice dribbling while walking in straight line",
+        "Add non-dominant hand dribbling",
+        "Practice crossover dribbling between cones",
+        "Combine with direction changes and speed variations"
+      ],
+      "variations": [
+        "Dribble with eyes closed for 10 seconds",
+        "Two-ball dribbling drill",
+        "Dribble tag game",
+        "Figure-8 dribbling through legs"
+      ],
+      "safetyNotes": [
+        "Ensure adequate space between participants",
+        "Keep head up while dribbling",
+        "Use proper ball pressure"
+      ],
+      "standards": ["PE.3-5.4", "PE.6-8.3", "PE.9-12.2"]
+    },
+    {
+      "id": "game-capture-flag",
+      "name": "Capture the Flag",
+      "category": "game",
+      "equipment": ["flags", "cones", "boundaries"],
+      "duration": 20,
+      "participants": {
+        "min": 10,
+        "max": 40
+      },
+      "ageGroup": ["elementary", "middle", "high-school"],
+      "skills": ["strategy", "teamwork", "cardiovascular"],
+      "description": "Classic team strategy game focusing on teamwork and strategic thinking",
+      "instructions": [
+        "Divide class into two equal teams",
+        "Set up boundaries and place flags at opposite ends",
+        "Explain rules: capture opponent's flag and return to home base",
+        "Players tagged in opponent territory go to 'jail'",
+        "Teammates can free jailed players by tagging them"
+      ],
+      "variations": [
+        "Multiple flags per team",
+        "Add special zones or power-ups",
+        "Night version with flashlights",
+        "Hospital tag variation"
+      ],
+      "safetyNotes": [
+        "Establish clear boundaries",
+        "No tackling or rough contact",
+        "Designate safe zones",
+        "Have adult supervision in each territory"
+      ],
+      "standards": ["PE.3-5.5", "PE.6-8.4", "PE.9-12.3"]
+    },
+    {
+      "id": "game-ultimate-frisbee",
+      "name": "Ultimate Frisbee",
+      "category": "game",
+      "equipment": ["frisbees", "cones"],
+      "duration": 25,
+      "participants": {
+        "min": 10,
+        "max": 30
+      },
+      "ageGroup": ["middle", "high-school", "adult"],
+      "skills": ["throwing", "catching", "teamwork", "strategy"],
+      "description": "Team sport combining elements of football and basketball using a frisbee",
+      "instructions": [
+        "Set up end zones with cones",
+        "Teams score by catching frisbee in opponent's end zone",
+        "No running with frisbee - pivot foot only",
+        "Incomplete pass or interception changes possession",
+        "Play self-refereed with spirit of the game"
+      ],
+      "variations": [
+        "Smaller field for beginners",
+        "Multiple frisbees in play",
+        "Zone defense only",
+        "Three-touch possession limit"
+      ],
+      "safetyNotes": [
+        "Proper throwing technique to avoid injury",
+        "No physical contact between players",
+        "Clear communication on the field",
+        "Proper warm-up before play"
+      ],
+      "standards": ["PE.6-8.5", "PE.9-12.4"]
+    },
+    {
+      "id": "skill-soccer-passing",
+      "name": "Soccer Passing and Receiving",
+      "category": "skill",
+      "equipment": ["soccer balls", "cones"],
+      "duration": 12,
+      "participants": {
+        "min": 6,
+        "max": 30
+      },
+      "ageGroup": ["elementary", "middle", "high-school"],
+      "skills": ["ball-control", "accuracy", "coordination"],
+      "description": "Fundamental soccer skills focusing on passing accuracy and ball reception",
+      "instructions": [
+        "Partner up students 10 yards apart",
+        "Practice inside foot passing back and forth",
+        "Focus on proper plant foot placement",
+        "Receive ball with inside foot, cushioning touch",
+        "Gradually increase distance and pace"
+      ],
+      "variations": [
+        "Add cones as gates to pass through",
+        "One-touch passing only",
+        "Use both feet alternately",
+        "Moving passes while jogging"
+      ],
+      "safetyNotes": [
+        "Check ball pressure before use",
+        "Maintain safe distances between groups",
+        "Proper footwear essential",
+        "Watch for other players when chasing loose balls"
+      ],
+      "standards": ["PE.K-2.3", "PE.3-5.6", "PE.6-8.6"]
+    },
+    {
+      "id": "cooldown-walking",
+      "name": "Cool Down Walk",
+      "category": "cooldown",
+      "equipment": [],
+      "duration": 5,
+      "participants": {
+        "min": 1,
+        "max": 50
+      },
+      "ageGroup": ["elementary", "middle", "high-school", "adult"],
+      "skills": ["recovery"],
+      "description": "Gentle walking to gradually reduce heart rate after exercise",
+      "instructions": [
+        "Start with slow walking pace",
+        "Focus on deep, controlled breathing",
+        "Gradually slow pace over 5 minutes",
+        "End with 1 minute of standing still"
+      ],
+      "variations": [
+        "Add gentle arm swings",
+        "Include mindfulness or breathing exercises",
+        "Walk in different patterns (circle, line, etc.)"
+      ],
+      "safetyNotes": [
+        "Don't stop activity abruptly",
+        "Continue moving until heart rate normalizes",
+        "Stay hydrated"
+      ],
+      "standards": ["PE.K-2.4", "PE.3-5.7"]
+    },
+    {
+      "id": "cooldown-static-stretch",
+      "name": "Static Stretching",
+      "category": "cooldown",
+      "equipment": [],
+      "duration": 10,
+      "participants": {
+        "min": 1,
+        "max": 50
+      },
+      "ageGroup": ["elementary", "middle", "high-school", "adult"],
+      "skills": ["flexibility", "recovery"],
+      "description": "Static stretches to improve flexibility and aid recovery",
+      "instructions": [
+        "Hold each stretch for 15-30 seconds",
+        "Stretch major muscle groups used in activity",
+        "Breathe deeply and relax into each stretch",
+        "Include hamstring, quad, calf, and shoulder stretches"
+      ],
+      "variations": [
+        "Partner stretching",
+        "Use yoga poses",
+        "Add meditation or relaxation",
+        "Focus on sport-specific stretches"
+      ],
+      "safetyNotes": [
+        "Never bounce while stretching",
+        "Stretch should feel comfortable, not painful",
+        "Don't hold breath during stretches"
+      ],
+      "standards": ["PE.K-2.5", "PE.3-5.8", "PE.6-8.7"]
+    },
+    {
+      "id": "game-dodgeball-modified",
+      "name": "Modified Dodgeball",
+      "category": "game",
+      "equipment": ["foam balls", "cones"],
+      "duration": 15,
+      "participants": {
+        "min": 10,
+        "max": 40
+      },
+      "ageGroup": ["elementary", "middle"],
+      "skills": ["agility", "throwing", "dodging"],
+      "description": "Modified version of dodgeball emphasizing fun and inclusion",
+      "instructions": [
+        "Use only foam balls for safety",
+        "Players hit below waist only",
+        "No throwing at head or face",
+        "Players return to game after 30 seconds out",
+        "Encourage teamwork and fair play"
+      ],
+      "variations": [
+        "Medic game - teammates can revive",
+        "Castle dodgeball with fort building",
+        "Zombie tag variation",
+        "Team elimination with multiple lives"
+      ],
+      "safetyNotes": [
+        "Soft foam balls only",
+        "No headshots allowed",
+        "Supervise closely for aggressive play",
+        "Ensure inclusive participation"
+      ],
+      "standards": ["PE.K-2.6", "PE.3-5.9"]
+    },
+    {
+      "id": "skill-volleyball-serve",
+      "name": "Volleyball Serving",
+      "category": "skill",
+      "equipment": ["volleyballs", "net", "court"],
+      "duration": 18,
+      "participants": {
+        "min": 6,
+        "max": 24
+      },
+      "ageGroup": ["middle", "high-school"],
+      "skills": ["serving", "accuracy", "coordination"],
+      "description": "Learning proper volleyball serving technique for underhand and overhand serves",
+      "instructions": [
+        "Start with underhand serve technique",
+        "Practice toss and contact point",
+        "Focus on follow-through direction",
+        "Progress to overhand serve when ready",
+        "Practice serving to specific court zones"
+      ],
+      "variations": [
+        "Serve to targets for points",
+        "Progressive distance serving",
+        "Serve and pass combination",
+        "Team serving competition"
+      ],
+      "safetyNotes": [
+        "Check net height and tension",
+        "Ensure clear court boundaries",
+        "Watch for other players when retrieving balls",
+        "Proper ball pressure"
+      ],
+      "standards": ["PE.6-8.8", "PE.9-12.5"]
+    },
+    {
+      "id": "game-kickball",
+      "name": "Kickball",
+      "category": "game",
+      "equipment": ["kickball", "bases", "cones"],
+      "duration": 20,
+      "participants": {
+        "min": 10,
+        "max": 30
+      },
+      "ageGroup": ["elementary", "middle"],
+      "skills": ["kicking", "catching", "teamwork", "strategy"],
+      "description": "Classic playground game combining kicking skills with baseball strategy",
+      "instructions": [
+        "Set up diamond with bases 60 feet apart",
+        "Pitcher rolls ball slowly to kicker",
+        "Kicker attempts to kick and run bases",
+        "Fielders catch or field ball to make outs",
+        "Three outs per inning, rotate teams"
+      ],
+      "variations": [
+        "Continuous kickball (no outs)",
+        "Multiple balls in play",
+        "Different base running rules",
+        "Silent kickball (no talking)"
+      ],
+      "safetyNotes": [
+        "Use proper kickball, not soccer ball",
+        "No sliding into bases",
+        "Keep fielders alert and ready",
+        "Clear foul territory"
+      ],
+      "standards": ["PE.K-2.7", "PE.3-5.10"]
+    },
+    {
+      "id": "skill-track-running",
+      "name": "Track Running Techniques",
+      "category": "skill",
+      "equipment": ["cones", "stopwatch"],
+      "duration": 20,
+      "participants": {
+        "min": 5,
+        "max": 40
+      },
+      "ageGroup": ["middle", "high-school"],
+      "skills": ["cardiovascular", "running-form", "endurance"],
+      "description": "Proper running techniques for track and field events",
+      "instructions": [
+        "Practice proper running posture and arm swing",
+        "Work on breathing rhythm and pace",
+        "Practice starts and acceleration",
+        "Focus on stride length and frequency",
+        "Cool down with walking and stretching"
+      ],
+      "variations": [
+        "Interval training with rest periods",
+        "Relay race practice",
+        "Hill running simulation",
+        "Time trials and personal records"
+      ],
+      "safetyNotes": [
+        "Proper warm-up essential",
+        "Monitor for overexertion",
+        "Adequate hydration",
+        "Proper running surface"
+      ],
+      "standards": ["PE.6-8.9", "PE.9-12.6"]
+    },
+    {
+      "id": "game-hockey-floor",
+      "name": "Floor Hockey",
+      "category": "game",
+      "equipment": ["hockey sticks", "puck", "goals", "cones"],
+      "duration": 25,
+      "participants": {
+        "min": 10,
+        "max": 30
+      },
+      "ageGroup": ["elementary", "middle", "high-school"],
+      "skills": ["stick-handling", "teamwork", "strategy", "coordination"],
+      "description": "Indoor hockey game focusing on stick handling and team play",
+      "instructions": [
+        "Divide into teams of 5-6 players",
+        "Practice basic stick handling and passing",
+        "Play short scrimmage games",
+        "Emphasize passing and teamwork",
+        "Rotate players regularly"
+      ],
+      "variations": [
+        "No goalies version",
+        "Multiple pucks in play",
+        "Skills challenges between games",
+        "3v3 tournament format"
+      ],
+      "safetyNotes": [
+        "Keep sticks low at all times",
+        "No body checking allowed",
+        "Wear eye protection if available",
+        "Clear playing area of obstacles"
+      ],
+      "standards": ["PE.3-5.11", "PE.6-8.10"]
+    },
+    {
+      "id": "skill-gymnastics-basic",
+      "name": "Basic Gymnastics",
+      "category": "skill",
+      "equipment": ["mats", "cones"],
+      "duration": 15,
+      "participants": {
+        "min": 5,
+        "max": 20
+      },
+      "ageGroup": ["elementary", "middle"],
+      "skills": ["flexibility", "strength", "coordination", "balance"],
+      "description": "Introduction to basic gymnastics movements and body control",
+      "instructions": [
+        "Practice forward and backward rolls",
+        "Work on handstands against wall",
+        "Practice cartwheels with proper form",
+        "Balance activities on one foot",
+        "Cool down with flexibility stretches"
+      ],
+      "variations": [
+        "Partner acrobatics",
+        "Obstacle course using skills",
+        "Dance integration",
+        "Progressive skill building"
+      ],
+      "safetyNotes": [
+        "Always use proper mats",
+        "Spot all students during skills",
+        "Progress gradually",
+        "Never force movements"
+      ],
+      "standards": ["PE.K-2.8", "PE.3-5.12"]
+    },
+    {
+      "id": "warmup-dance",
+      "name": "Dance Warm-up",
+      "category": "warmup",
+      "equipment": ["music player"],
+      "duration": 8,
+      "participants": {
+        "min": 1,
+        "max": 50
+      },
+      "ageGroup": ["elementary", "middle", "high-school"],
+      "skills": ["coordination", "rhythm", "cardiovascular"],
+      "description": "Fun dance-based warm-up to music",
+      "instructions": [
+        "Start with simple step-touch movements",
+        "Add arm movements and gestures",
+        "Include level changes (high, middle, low)",
+        "Build intensity gradually",
+        "End with full-body movement"
+      ],
+      "variations": [
+        "Follow the leader format",
+        "Different music styles",
+        "Student-created movements",
+        "Cultural dance exploration"
+      ],
+      "safetyNotes": [
+        "Ensure adequate space",
+        "Start slowly and build intensity",
+        "Allow for different skill levels",
+        "Monitor for overexertion"
+      ],
+      "standards": ["PE.K-2.9", "PE.3-5.13"]
+    }
+  ]
+}
