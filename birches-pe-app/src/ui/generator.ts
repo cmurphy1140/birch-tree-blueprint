@@ -444,18 +444,44 @@ export class GeneratorUI {
 
   private async handleGenerate() {
     const form = document.getElementById('generator-form') as HTMLFormElement;
+    if (!form) {
+      console.error('Form not found');
+      return;
+    }
+    
     const formData = new FormData(form);
     
+    // Validate required fields
+    const gradeLevel = formData.get('gradeLevel') as string;
+    const duration = formData.get('duration') as string;
+    const environment = formData.get('environment') as string;
+    
+    if (!gradeLevel || !duration || !environment) {
+      alert('Please fill in all required fields');
+      return;
+    }
+    
+    // Get selected standards
+    const standards = formData.getAll('standards') as string[];
+    if (standards.length === 0) {
+      alert('Please select at least one PE standard');
+      return;
+    }
+    
     const input: GeneratorInput = {
-      gradeLevel: formData.get('gradeLevel') as string,
-      duration: parseInt(formData.get('duration') as string),
-      environment: formData.get('environment') as 'indoor' | 'outdoor',
-      standards: formData.getAll('standards') as string[],
-      equipmentLevel: formData.get('equipmentLevel') as string,
-      teamBased: formData.get('teamBased') === 'true',
-      competitive: formData.get('competitive') === 'true',
-      creative: formData.get('creative') === 'true'
+      gradeLevel,
+      duration: parseInt(duration),
+      environment: environment as 'indoor' | 'outdoor',
+      standards,
+      equipmentLevel: formData.get('equipmentLevel') as string || 'minimal',
+      activityPreferences: {
+        teamBased: formData.get('teamBased') === 'true',
+        competitive: formData.get('competitive') === 'true',
+        creative: formData.get('creative') === 'true'
+      }
     };
+    
+    console.log('Generating playbook with input:', input);
 
     // Show loading state
     const displayDiv = document.getElementById('playbook-display');
@@ -648,7 +674,9 @@ export class GeneratorUI {
     // Set quick preset values
     (form.elements.namedItem('gradeLevel') as HTMLSelectElement).value = '3-5';
     (form.elements.namedItem('duration') as HTMLSelectElement).value = '30';
-    (form.elements.namedItem('environment') as HTMLInputElement).value = 'indoor';
+    // Set environment radio button
+    const indoorRadio = form.querySelector('input[name="environment"][value="indoor"]') as HTMLInputElement;
+    if (indoorRadio) indoorRadio.checked = true;
     (form.elements.namedItem('equipmentLevel') as HTMLSelectElement).value = 'minimal';
     
     // Check some standards
