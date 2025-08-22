@@ -340,7 +340,12 @@ export class GeneratorUI {
   private attachEventListeners() {
     // Form submission
     const form = document.getElementById('generator-form') as HTMLFormElement;
-    form?.addEventListener('submit', (e) => this.handleGenerate(e));
+    if (form) {
+      form.addEventListener('submit', (e) => this.handleGenerate(e));
+      console.log('Form event listener attached');
+    } else {
+      console.error('Form not found!');
+    }
 
     // Theme toggle
     document.getElementById('theme-toggle')?.addEventListener('click', () => {

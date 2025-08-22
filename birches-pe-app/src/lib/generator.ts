@@ -15,18 +15,32 @@ export class DeterministicGenerator {
         fetch('/data/standards.json')
       ]);
       
-      this.activities = await activitiesRes.json();
-      this.standards = await standardsRes.json();
+      const activitiesData = await activitiesRes.json();
+      const standardsData = await standardsRes.json();
+      
+      // Handle the structure of the JSON files
+      this.activities = activitiesData.activities || activitiesData;
+      this.standards = Array.isArray(standardsData) ? standardsData : standardsData.standards || [];
+      
+      console.log('Data loaded - Activities:', this.activities.length, 'Standards:', this.standards.length);
     } catch (error) {
       console.error('Failed to load data:', error);
     }
   }
 
   async generate(input: GeneratorInput): Promise<Playbook> {
+    console.log('Generator.generate called with:', input);
+    
     // Ensure data is loaded
-    if (this.activities.length === 0) {
+    if (!this.activities || this.activities.length === 0) {
+      console.log('Activities not loaded, loading now...');
       await this.loadData();
+      
+      // Wait a bit for data to fully load
+      await new Promise(resolve => setTimeout(resolve, 100));
     }
+    
+    console.log('Generating playbook with', this.activities.length, 'activities and', this.standards.length, 'standards');
 
     const playbook: Playbook = {
       id: this.generateId(),
@@ -166,24 +180,42 @@ export class DeterministicGenerator {
   }
 
   private filterActivities(type: string, input: GeneratorInput): any[] {
-    return this.activities.filter(activity => {
-      // Filter by type
-      if (type === 'warmup' && activity.type !== 'warmup') return false;
-      if (type === 'main' && !['game', 'activity'].includes(activity.type)) return false;
-      if (type === 'skill' && activity.type !== 'skill') return false;
+    if (!this.activities || !Array.isArray(this.activities)) {
+      console.warn('No activities available for filtering');
+      return [];
+    }
+    
+    const filtered = this.activities.filter(activity => {
+      // Filter by category (not type)
+      if (type === 'warmup' && activity.category !== 'warmup') return false;
+      if (type === 'main' && !['game', 'main', 'activity'].includes(activity.category)) return false;
+      if (type === 'skill' && !['skill', 'skill-building'].includes(activity.category)) return false;
 
-      // Filter by grade level
-      if (activity.gradeLevel && !activity.gradeLevel.includes(input.gradeLevel)) return false;
+      // Filter by age group (map grade levels to age groups)
+      if (activity.ageGroup && activity.ageGroup.length > 0) {
+        const gradeToAge = {
+          'K-2': 'elementary',
+          '3-5': 'elementary',
+          '6-8': 'middle'
+        };
+        const targetAge = gradeToAge[input.gradeLevel];
+        if (targetAge && !activity.ageGroup.includes(targetAge)) return false;
+      }
 
-      // Filter by environment
-      if (activity.environment && activity.environment !== input.environment) return false;
+      // Filter by environment if specified
+      if (activity.environment && activity.environment !== 'both' && 
+          activity.environment !== input.environment) return false;
 
       // Filter by equipment level
-      if (input.equipmentLevel === 'minimal' && activity.equipment?.length > 2) return false;
-      if (input.equipmentLevel === 'standard' && activity.equipment?.length > 5) return false;
+      const equipmentCount = activity.equipment?.length || 0;
+      if (input.equipmentLevel === 'minimal' && equipmentCount > 2) return false;
+      if (input.equipmentLevel === 'standard' && equipmentCount > 5) return false;
 
       return true;
     });
+    
+    console.log(`Filtered ${type} activities: ${filtered.length} from ${this.activities.length} total`);
+    return filtered;
   }
 
   private selectRandom<T>(array: T[]): T | null {

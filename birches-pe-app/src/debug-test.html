@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Debug Test - Birch Tree Blueprint</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 1200px; margin: 0 auto; }
+        .test-section { border: 2px solid #ccc; padding: 15px; margin: 15px 0; border-radius: 8px; }
+        .pass { background: #d4edda; }
+        .fail { background: #f8d7da; }
+        .pending { background: #fff3cd; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        .log { background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 4px; font-family: monospace; }
+        .error { color: red; font-weight: bold; }
+        .success { color: green; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Birch Tree Blueprint - Debug Test Suite</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Check Data Files</h2>
+        <button onclick="testDataFiles()">Run Test</button>
+        <div id="data-test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: Test Generator Directly</h2>
+        <button onclick="testGenerator()">Run Test</button>
+        <div id="generator-test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 3: Test Form Submission</h2>
+        <form id="test-form">
+            <label>Grade: <select name="gradeLevel">
+                <option value="K-2">K-2</option>
+                <option value="3-5" selected>3-5</option>
+                <option value="6-8">6-8</option>
+            </select></label><br>
+            
+            <label>Duration: <select name="duration">
+                <option value="30">30</option>
+                <option value="45" selected>45</option>
+                <option value="60">60</option>
+            </select></label><br>
+            
+            <label>Environment: 
+                <input type="radio" name="environment" value="indoor" checked> Indoor
+                <input type="radio" name="environment" value="outdoor"> Outdoor
+            </label><br>
+            
+            <label>Standards:<br>
+                <input type="checkbox" name="standards" value="S1" checked> S1<br>
+                <input type="checkbox" name="standards" value="S2" checked> S2<br>
+                <input type="checkbox" name="standards" value="S3"> S3<br>
+            </label><br>
+            
+            <button type="submit">Test Form Submission</button>
+        </form>
+        <div id="form-test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 4: Test Navigation</h2>
+        <button onclick="testNavigation()">Run Test</button>
+        <div id="navigation-test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 5: Full Integration Test</h2>
+        <button onclick="runFullTest()">Run Complete Test</button>
+        <div id="full-test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Console Log</h2>
+        <div id="console-log"></div>
+    </div>
+
+    <script type="module">
+        // Logging helper
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('console-log');
+            const entry = document.createElement('div');
+            entry.className = 'log';
+            if (type === 'error') entry.classList.add('error');
+            if (type === 'success') entry.classList.add('success');
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logDiv.appendChild(entry);
+            console.log(message);
+        }
+
+        // Test 1: Data Files
+        window.testDataFiles = async function() {
+            const resultDiv = document.getElementById('data-test-result');
+            resultDiv.innerHTML = '<p>Testing data files...</p>';
+            
+            try {
+                // Test standards.json
+                log('Fetching standards.json...');
+                const standardsRes = await fetch('/data/standards.json');
+                const standards = await standardsRes.json();
+                log(`Standards loaded: ${Array.isArray(standards) ? standards.length : 'Not an array!'}`, 
+                    Array.isArray(standards) ? 'success' : 'error');
+                
+                // Test activities.json
+                log('Fetching activities.json...');
+                const activitiesRes = await fetch('/data/activities.json');
+                const activities = await activitiesRes.json();
+                log(`Activities loaded: ${activities.activities ? activities.activities.length : 'No activities array!'}`,
+                    activities.activities ? 'success' : 'error');
+                
+                resultDiv.className = 'pass';
+                resultDiv.innerHTML = `
+                    <p class="success">✅ Data files loaded successfully!</p>
+                    <p>Standards: ${standards.length} items</p>
+                    <p>Activities: ${activities.activities ? activities.activities.length : 0} items</p>
+                `;
+                
+                // Display sample data
+                if (standards[0]) {
+                    log(`Sample standard: ${JSON.stringify(standards[0], null, 2)}`);
+                }
+                
+            } catch (error) {
+                resultDiv.className = 'fail';
+                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+                log(`Data test failed: ${error.message}`, 'error');
+            }
+        }
+
+        // Test 2: Generator
+        window.testGenerator = async function() {
+            const resultDiv = document.getElementById('generator-test-result');
+            resultDiv.innerHTML = '<p>Testing generator...</p>';
+            
+            try {
+                log('Importing generator module...');
+                const { DeterministicGenerator } = await import('./lib/generator.ts');
+                
+                log('Creating generator instance...');
+                const generator = new DeterministicGenerator();
+                
+                // Wait for data to load
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                const testInput = {
+                    gradeLevel: '3-5',
+                    duration: 45,
+                    environment: 'indoor',
+                    standards: ['S1', 'S2'],
+                    equipmentLevel: 'standard',
+                    activityPreferences: {
+                        teamBased: true,
+                        competitive: false,
+                        creative: true
+                    }
+                };
+                
+                log('Generating playbook with input: ' + JSON.stringify(testInput));
+                const playbook = await generator.generate(testInput);
+                
+                if (playbook && playbook.id && playbook.title && playbook.lessons) {
+                    resultDiv.className = 'pass';
+                    resultDiv.innerHTML = `
+                        <p class="success">✅ Generator works!</p>
+                        <p>Playbook ID: ${playbook.id}</p>
+                        <p>Title: ${playbook.title}</p>
+                        <p>Lessons: ${playbook.lessons.length}</p>
+                    `;
+                    log(`Generated playbook: ${playbook.title} with ${playbook.lessons.length} lessons`, 'success');
+                    
+                    // Store for navigation test
+                    window.testPlaybook = playbook;
+                    window.testInput = testInput;
+                } else {
+                    throw new Error('Invalid playbook structure');
+                }
+                
+            } catch (error) {
+                resultDiv.className = 'fail';
+                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+                log(`Generator test failed: ${error.message}`, 'error');
+                console.error(error);
+            }
+        }
+
+        // Test 3: Form Submission
+        document.getElementById('test-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const resultDiv = document.getElementById('form-test-result');
+            resultDiv.innerHTML = '<p>Testing form submission...</p>';
+            
+            try {
+                const formData = new FormData(e.target);
+                const standards = formData.getAll('standards');
+                
+                log('Form data collected:');
+                log(`- Grade: ${formData.get('gradeLevel')}`);
+                log(`- Duration: ${formData.get('duration')}`);
+                log(`- Environment: ${formData.get('environment')}`);
+                log(`- Standards: ${standards.join(', ')}`);
+                
+                if (standards.length === 0) {
+                    throw new Error('No standards selected');
+                }
+                
+                resultDiv.className = 'pass';
+                resultDiv.innerHTML = `
+                    <p class="success">✅ Form submission works!</p>
+                    <p>Standards selected: ${standards.length}</p>
+                `;
+                
+            } catch (error) {
+                resultDiv.className = 'fail';
+                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+                log(`Form test failed: ${error.message}`, 'error');
+            }
+        });
+
+        // Test 4: Navigation
+        window.testNavigation = function() {
+            const resultDiv = document.getElementById('navigation-test-result');
+            resultDiv.innerHTML = '<p>Testing navigation...</p>';
+            
+            try {
+                if (!window.testPlaybook || !window.testInput) {
+                    throw new Error('Run generator test first');
+                }
+                
+                // Store in sessionStorage
+                const data = {
+                    playbook: window.testPlaybook,
+                    userInput: window.testInput
+                };
+                
+                log('Storing playbook in sessionStorage...');
+                sessionStorage.setItem('currentPlaybook', JSON.stringify(data));
+                
+                // Verify storage
+                const stored = sessionStorage.getItem('currentPlaybook');
+                if (!stored) {
+                    throw new Error('Failed to store in sessionStorage');
+                }
+                
+                const retrieved = JSON.parse(stored);
+                if (retrieved.playbook.id === window.testPlaybook.id) {
+                    resultDiv.className = 'pass';
+                    resultDiv.innerHTML = `
+                        <p class="success">✅ Navigation storage works!</p>
+                        <p><a href="/playbook.html" target="_blank">Click here to view the playbook</a></p>
+                    `;
+                    log('Playbook stored successfully. Ready to navigate.', 'success');
+                } else {
+                    throw new Error('Storage verification failed');
+                }
+                
+            } catch (error) {
+                resultDiv.className = 'fail';
+                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+                log(`Navigation test failed: ${error.message}`, 'error');
+            }
+        }
+
+        // Test 5: Full Integration
+        window.runFullTest = async function() {
+            const resultDiv = document.getElementById('full-test-result');
+            resultDiv.innerHTML = '<p>Running full integration test...</p>';
+            
+            log('=== Starting Full Integration Test ===', 'success');
+            
+            // Run all tests in sequence
+            await testDataFiles();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await testGenerator();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            testNavigation();
+            
+            resultDiv.className = 'pass';
+            resultDiv.innerHTML = `
+                <p class="success">✅ Full integration test complete!</p>
+                <p>All systems operational</p>
+            `;
+            
+            log('=== Full Test Complete ===', 'success');
+        }
+
+        // Auto-run data test on load
+        window.addEventListener('load', () => {
+            log('Debug test page loaded', 'success');
+            testDataFiles();
+        });
+    </script>
+</body>
+</html>
