@@ -12,6 +12,7 @@ export class GeneratorUI {
   private useAI: boolean = false;
 
   constructor(container: HTMLElement) {
+    console.log('GeneratorUI constructor called');
     this.container = container;
     this.generator = new DeterministicGenerator();
     this.store = new PlaybookStore();
@@ -20,13 +21,19 @@ export class GeneratorUI {
   }
 
   private async init() {
+    console.log('GeneratorUI.init() called');
     await this.store.init();
+    console.log('Store initialized');
     this.render();
+    console.log('Render completed');
     this.attachEventListeners();
+    console.log('Event listeners attached');
     this.loadSettings();
+    console.log('Settings loaded');
   }
 
   private render() {
+    console.log('GeneratorUI.render() called');
     this.container.innerHTML = `
       <!-- Navigation Bar -->
       <nav class="nav-bar">
