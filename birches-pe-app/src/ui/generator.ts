@@ -311,17 +311,27 @@ export class GeneratorUI {
   }
 
   private async loadStandardsCheckboxes() {
-    const response = await fetch('/data/standards.json');
-    const standards = await response.json();
-    const container = document.getElementById('standards-checkboxes');
-    
-    if (container) {
-      container.innerHTML = standards.map((std: any) => `
-        <label class="form-checkbox">
-          <input type="checkbox" name="standards" value="${std.id}">
-          <span title="${std.description}">${std.name}</span>
-        </label>
-      `).join('');
+    try {
+      console.log('Loading standards...');
+      const response = await fetch('/data/standards.json');
+      const standards = await response.json();
+      console.log('Standards loaded:', standards);
+      
+      const container = document.getElementById('standards-checkboxes');
+      
+      if (container && Array.isArray(standards)) {
+        container.innerHTML = standards.map((std: any) => `
+          <label class="form-checkbox">
+            <input type="checkbox" name="standards" value="${std.id}">
+            <span title="${std.description}">${std.name}</span>
+          </label>
+        `).join('');
+        console.log(`Loaded ${standards.length} standards checkboxes`);
+      } else {
+        console.error('Standards container not found or data is not an array');
+      }
+    } catch (error) {
+      console.error('Failed to load standards:', error);
     }
   }
 
@@ -395,11 +405,15 @@ export class GeneratorUI {
 
   private async handleGenerate(e: Event) {
     e.preventDefault();
+    console.log('Generate button clicked!');
+    
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     
     // Build input object
     const standards = formData.getAll('standards') as string[];
+    console.log('Selected standards:', standards);
+    
     if (standards.length === 0 || standards.length > 3) {
       alert('Please select 1-3 PE standards');
       return;
@@ -412,11 +426,13 @@ export class GeneratorUI {
       standards,
       equipmentLevel: formData.get('equipmentLevel') as 'minimal' | 'standard' | 'full',
       activityPreferences: {
-        teamBased: formData.get('teamBased') === 'true',
-        competitive: formData.get('competitive') === 'true',
-        creative: formData.get('creative') === 'true'
+        teamBased: (form.querySelector('input[name="teamBased"]') as HTMLInputElement)?.checked || false,
+        competitive: (form.querySelector('input[name="competitive"]') as HTMLInputElement)?.checked || false,
+        creative: (form.querySelector('input[name="creative"]') as HTMLInputElement)?.checked || false
       }
     };
+    
+    console.log('Input object:', input);
 
     // Show loading state
     const content = document.getElementById('playbook-content');
@@ -426,9 +442,11 @@ export class GeneratorUI {
 
     try {
       // Generate playbook
+      console.log('Starting generation...');
       let playbook: Playbook;
       
       if (this.useAI) {
+        console.log('Using AI generation');
         const apiKey = localStorage.getItem('api-key');
         const provider = localStorage.getItem('ai-provider') || 'anthropic';
         
@@ -439,7 +457,9 @@ export class GeneratorUI {
         
         playbook = await this.aiGenerator.generate(input, { apiKey, provider });
       } else {
+        console.log('Using deterministic generation');
         playbook = await this.generator.generate(input);
+        console.log('Generated playbook:', playbook);
       }
 
       this.currentPlaybook = playbook;
@@ -451,8 +471,9 @@ export class GeneratorUI {
       });
     } catch (error) {
       console.error('Generation failed:', error);
+      alert(`Generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
       if (content) {
-        content.innerHTML = '<div class="text-center p-4 text-red-500">Generation failed. Please try again.</div>';
+        content.innerHTML = `<div class="text-center p-4" style="color: red;">Generation failed: ${error instanceof Error ? error.message : 'Unknown error'}</div>`;
       }
     }
   }

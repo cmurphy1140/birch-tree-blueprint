@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Test</title>
+</head>
+<body>
+    <h1>Debug Generate Button</h1>
+    <iframe id="app-frame" src="http://localhost:5173" width="100%" height="600"></iframe>
+    
+    <div id="log"></div>
+    
+    <script>
+        // This will help us see what's happening
+        setTimeout(() => {
+            console.log('Testing app loading...');
+            
+            // Try to access the iframe content (won't work due to CORS but we can try)
+            try {
+                const iframe = document.getElementById('app-frame');
+                console.log('Iframe loaded');
+            } catch(e) {
+                console.error('Cannot access iframe:', e);
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
