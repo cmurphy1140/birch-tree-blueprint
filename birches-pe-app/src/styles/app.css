@@ -1,4 +1,4 @@
-/* Arcade UI Design System - Birches PE App */
+/* Arcade UI Design System - Birch Tree Blueprint */
 
 /* CSS Variables */
 :root {
@@ -413,6 +413,28 @@ h6 { font-size: 1.125rem; }
 @keyframes slideUp {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
+}
+
+/* Hero Section */
+.hero-section {
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 200;
+  background: var(--gradient-blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+  font-size: 1.125rem;
+  color: var(--muted-foreground);
+  font-weight: 400;
 }
 
 /* Utilities */

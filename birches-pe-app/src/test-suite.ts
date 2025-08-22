@@ -1,4 +1,4 @@
-// Comprehensive Test Suite for Birches PE App
+// Comprehensive Test Suite for Birch Tree Blueprint
 import type { GeneratorInput } from './types';
 import { DeterministicGenerator } from './lib/generator';
 

@@ -162,7 +162,7 @@ Implements SHAPE America's National PE Standards:
 
 ## License
 
-Proprietary - Birches Academy
+Proprietary - Birch Tree Blueprint / Birches Academy
 
 ## Support
 

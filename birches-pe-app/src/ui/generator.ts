@@ -71,10 +71,16 @@ export class GeneratorUI {
         </nav>
 
         <div class="container mt-4">
+          <!-- Hero Section -->
+          <div class="hero-section text-center mb-4">
+            <h1 class="hero-title">Birch Tree Blueprint</h1>
+            <p class="hero-subtitle">Professional PE Playbook Generator for K-8 Education</p>
+          </div>
+          
           <div class="grid grid-cols-3 gap-4">
             <!-- Input Form -->
             <div class="card glass">
-              <h2>Create Playbook</h2>
+              <h2>Create Your Playbook</h2>
               
               <form id="generator-form">
                 <div class="form-group">
